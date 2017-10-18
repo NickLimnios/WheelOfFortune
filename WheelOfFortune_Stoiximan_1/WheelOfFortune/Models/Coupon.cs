@@ -15,13 +15,7 @@ namespace WheelOfFortune.Models
         public DateTime CreationDate { get; set; }
         public DateTime ExpirationDate { get; set; } //in case we want the coupon to expire
 
-        public bool FlagUsed { get; set; } // if the coupon is used. Do we need this?
-
-        //do we need the ones beelow?
-
-        //public string AdminIssuedThis { get; set; }
-        //public int Uses { get; set; }
-        //public ICollection<string> UsersAbleToUseThis { get; set; }
+        public bool IsInactive { get; set; } = false; // if the coupon is used. Do we need this?
 
     }
 }
