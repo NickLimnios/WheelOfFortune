@@ -11,7 +11,7 @@ namespace WheelOfFortune.Models
 
 
         public int UserId { get; set; }
-        public int CouponId { get; set; }//Caution this could be null/0 if we implement a non-coupon transaction or after a spin result?. Could be set to -1 by default.
+        public int? CouponId { get; set; }//Caution this could be null/0 if we implement a non-coupon transaction or after a spin result?. Could be set to -1 by default.
         public DateTime TransactionDate { get; set; }
 
 
