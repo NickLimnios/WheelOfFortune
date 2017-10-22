@@ -233,6 +233,7 @@ namespace WheelOfFortune.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+                await _userManager.AddToRoleAsync(user, "User");
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
