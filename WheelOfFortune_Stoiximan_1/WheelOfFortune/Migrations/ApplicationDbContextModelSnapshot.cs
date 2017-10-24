@@ -143,6 +143,10 @@ namespace WheelOfFortune.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
+                    b.Property<byte[]>("Image");
+
+                    b.Property<string>("ImageUrl");
+
                     b.Property<bool>("LockoutEnabled");
 
                     b.Property<DateTimeOffset?>("LockoutEnd");
