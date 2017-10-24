@@ -1,15 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 using WheelOfFortune.Models;
 using WheelOfFortune.Models.AccountViewModels;
 using WheelOfFortune.Services;
@@ -233,8 +229,10 @@ namespace WheelOfFortune.Controllers
             if (ModelState.IsValid)
             {
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
-                await _userManager.AddToRoleAsync(user, "User");
                 var result = await _userManager.CreateAsync(user, model.Password);
+                //AddToRoleAsync DOESN'T CHECK THE NAME as the method suggest BUT THE NormalizedName!!!
+                await _userManager.AddToRoleAsync(user, "User");
+
                 if (result.Succeeded)
                 {
                     _logger.LogInformation("User created a new account with password.");
@@ -247,6 +245,7 @@ namespace WheelOfFortune.Controllers
                     _logger.LogInformation("User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
+
                 AddErrors(result);
             }
 
