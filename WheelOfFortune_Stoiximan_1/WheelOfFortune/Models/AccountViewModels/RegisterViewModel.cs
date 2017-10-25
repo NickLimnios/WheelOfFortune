@@ -1,8 +1,10 @@
 ﻿using System;
+using System.Web;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace WheelOfFortune.Models.AccountViewModels
 {
@@ -27,5 +29,11 @@ namespace WheelOfFortune.Models.AccountViewModels
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        //[Maybe a max size]
+        [Display (Name = "Photo")]
+        public IFormFile Image { get; set; }
+       
     }
 }

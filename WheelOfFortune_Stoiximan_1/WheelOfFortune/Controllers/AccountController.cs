@@ -1,4 +1,10 @@
 ﻿using System;
+
+
+using System.Web;
+using System.Collections.Generic;
+using System.Linq;
+
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -9,6 +15,10 @@ using Microsoft.Extensions.Logging;
 using WheelOfFortune.Models;
 using WheelOfFortune.Models.AccountViewModels;
 using WheelOfFortune.Services;
+using System.IO;
+using Microsoft.AspNetCore.Http;
+using StackExchange.Redis;
+using Microsoft.AspNetCore.Server.Kestrel.Internal.System;
 
 namespace WheelOfFortune.Controllers
 {
@@ -223,12 +233,20 @@ namespace WheelOfFortune.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model,IFormFile Image, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
+                      
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
+
+                using (var memoryStream = new MemoryStream())
+                {
+                    await model.Image.CopyToAsync(memoryStream);
+                    user.Image = memoryStream.ToArray();
+                }
+
                 var result = await _userManager.CreateAsync(user, model.Password);
                 //AddToRoleAsync DOESN'T CHECK THE NAME as the method suggest BUT THE NormalizedName!!!
                 await _userManager.AddToRoleAsync(user, "User");

@@ -32,6 +32,7 @@ namespace WheelOfFortune.Data
         {
             //Customize Application User
             builder.Entity<ApplicationUser>().ToTable("Users");
+            builder.Entity<ApplicationUser>().Property(typeof(string), "ImageUrl");
             builder.Entity<ApplicationUser>(p => p.Property(c => c.Email).HasColumnName("EmailAddress"));
 
             //Customize Application Role

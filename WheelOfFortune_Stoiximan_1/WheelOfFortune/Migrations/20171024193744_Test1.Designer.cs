@@ -11,9 +11,10 @@ using WheelOfFortune.Data;
 namespace WheelOfFortune.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20171024193744_Test1")]
+    partial class Test1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -142,10 +143,6 @@ namespace WheelOfFortune.Migrations
                         .HasMaxLength(256);
 
                     b.Property<bool>("EmailConfirmed");
-
-                    b.Property<byte[]>("Image");
-
-                    b.Property<string>("ImageUrl");
 
                     b.Property<bool>("LockoutEnabled");
 

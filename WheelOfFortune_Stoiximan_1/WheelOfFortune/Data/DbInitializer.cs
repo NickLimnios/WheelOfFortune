@@ -62,19 +62,30 @@ namespace WheelOfFortune.Data
             Helper helper = new Helper();
 
             //create initial user
-            ApplicationUser[] users = new ApplicationUser[]
-                {
-                    new ApplicationUser
-                    {
-                        UserName = "admin@wheel.gr",
-                        NormalizedUserName ="ADMIN",
-                        PasswordHash = helper.CalculateHash("Admin!23"),
-                        Email = "admin@wheel.gr",
-                        EmailConfirmed = true
-                    }
-                };
+            var user = new ApplicationUser
+            {
 
-            context.Users.AddRange(users);
+                Email = "my@email.com",
+                UserName = "TestUser",
+                NormalizedUserName = "TESTUSER",
+                PhoneNumber = "00000000",
+                EmailConfirmed = true,
+                PhoneNumberConfirmed = true,
+                SecurityStamp = Guid.NewGuid().ToString("D")
+            };
+
+            if (!context.Users.Any(u => u.UserName == "me@myemail.com"))
+            {
+                var _password = new PasswordHasher<ApplicationUser>();
+                var hashed = _password.HashPassword(user, "Test!23");
+                user.PasswordHash = hashed;
+
+                context.Users.Add(user);
+                context.SaveChanges();
+
+            }
+
+            context.Users.AddRange(user);
             context.SaveChanges();
         }
 
@@ -90,7 +101,7 @@ namespace WheelOfFortune.Data
                      new IdentityUserRole<int>
                      {
                         RoleId = context.Roles.Where(p => String.Equals(p.Name,"Admin")).Select(p => p.Id).FirstOrDefault(),
-                        UserId = context.Users.Where(p => String.Equals(p.UserName,"admin@wheel.gr")).Select(p => p.Id).FirstOrDefault()
+                        UserId = context.Users.Where(p => String.Equals(p.UserName,"my@email.com")).Select(p => p.Id).FirstOrDefault()
                      }
                  };
 
