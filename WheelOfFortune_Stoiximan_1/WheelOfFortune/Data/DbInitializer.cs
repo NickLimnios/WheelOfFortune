@@ -34,17 +34,20 @@ namespace WheelOfFortune.Data
                 new ApplicationRole
                 {
                     Name = "Admin",
-                    IsAdmin = true
+                    IsAdmin = true,
+                    NormalizedName = "Admin"
                 },
                 new ApplicationRole
                 {
                     Name = "SuperAdmin",
-                    IsAdmin = true
+                    IsAdmin = true,
+                    NormalizedName = "SuperAdmin"
                 },
                 new ApplicationRole
                 {
                     Name = "User",
-                    IsAdmin = false
+                    IsAdmin = false,
+                    NormalizedName = "User"
                 }
 
             };
