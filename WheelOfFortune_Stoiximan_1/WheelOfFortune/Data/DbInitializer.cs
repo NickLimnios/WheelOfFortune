@@ -104,7 +104,7 @@ namespace WheelOfFortune.Data
                      new IdentityUserRole<int>
                      {
                         RoleId = context.Roles.Where(p => String.Equals(p.Name,"Admin")).Select(p => p.Id).FirstOrDefault(),
-                        UserId = context.Users.Where(p => String.Equals(p.UserName,"my@email.com")).Select(p => p.Id).FirstOrDefault()
+                        UserId = context.Users.Where(p => String.Equals(p.UserName,"TestUser")).Select(p => p.Id).FirstOrDefault()
                      }
                  };
 

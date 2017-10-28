@@ -36,7 +36,8 @@ namespace WheelOfFortune
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<ICouponsRepository,FakeCouponRepository>();
+            services.AddTransient<ICouponsRepository,EFCouponRepository>();
+            services.AddTransient<ITransactionRepository, EFTransactionRepository>();
 
             services.AddMvc();
 
@@ -70,10 +71,12 @@ namespace WheelOfFortune
                     template: "{controller=Home}/{action=Index}/{id?}");
 
                   routes.MapRoute(
-
                       name: "Coupon",
+                      template: "{controller=Coupon}/{action=CouponList}/{id?}");
 
-                      template: "{controller=CouponController}/{action=List}/{id?}");
+                routes.MapRoute(
+                      name: "Transaction",
+                      template: "{controller=Transaction}/{action=TransactionList}/{id?}");
 
             });
             

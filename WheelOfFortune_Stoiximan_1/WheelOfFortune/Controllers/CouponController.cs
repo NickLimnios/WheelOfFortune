@@ -16,6 +16,6 @@ namespace WheelOfFortune.Controllers
             repository = repo;
         }
 
-        public ViewResult List() => View(repository.Coupons);
+        public ViewResult CouponList() => View(repository.Coupons);
     }
 }

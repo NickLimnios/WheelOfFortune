@@ -11,9 +11,11 @@ namespace WheelOfFortune.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser,ApplicationRole,int>
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
-            : base(options)
-        {
-        }
+            : base(options){}
+
+        public DbSet<Transaction> Transactions { get; set; }
+        public DbSet<Coupon> Coupons { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -24,15 +26,12 @@ namespace WheelOfFortune.Data
             // Add your customizations after calling base.OnModelCreating(builder);
             ModelCustomize(builder);
 
-
-
         }
 
         private void ModelCustomize(ModelBuilder builder)
         {
             //Customize Application User
             builder.Entity<ApplicationUser>().ToTable("Users");
-            builder.Entity<ApplicationUser>().Property(typeof(string), "ImageUrl");
             builder.Entity<ApplicationUser>(p => p.Property(c => c.Email).HasColumnName("EmailAddress"));
 
             //Customize Application Role

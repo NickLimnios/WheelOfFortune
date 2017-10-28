@@ -19,6 +19,7 @@ using System.IO;
 using Microsoft.AspNetCore.Http;
 using StackExchange.Redis;
 using Microsoft.AspNetCore.Server.Kestrel.Internal.System;
+using WheelOfFortune.Data;
 
 namespace WheelOfFortune.Controllers
 {
@@ -26,17 +27,20 @@ namespace WheelOfFortune.Controllers
     [Route("[controller]/[action]")]
     public class AccountController : Controller
     {
+        private ApplicationDbContext _applicationDbContext;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
 
         public AccountController(
+            ApplicationDbContext applicationDbContext,
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ILogger<AccountController> logger)
         {
+            _applicationDbContext = applicationDbContext;
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
@@ -250,6 +254,10 @@ namespace WheelOfFortune.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 //AddToRoleAsync DOESN'T CHECK THE NAME as the method suggest BUT THE NormalizedName!!!
                 await _userManager.AddToRoleAsync(user, "User");
+
+                //Add Initial Balance after Registration
+                _applicationDbContext.Transactions.Add(new Transaction { UserId = user.Id, Amount = 10, Comment = "Initial Balance", TransactionDate = DateTime.Now });
+                await _applicationDbContext.SaveChangesAsync();
 
                 if (result.Succeeded)
                 {
