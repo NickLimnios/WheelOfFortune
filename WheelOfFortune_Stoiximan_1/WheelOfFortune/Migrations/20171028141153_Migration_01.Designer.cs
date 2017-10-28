@@ -11,8 +11,8 @@ using WheelOfFortune.Data;
 namespace WheelOfFortune.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171028103640_EFTransaction")]
-    partial class EFTransaction
+    [Migration("20171028141153_Migration_01")]
+    partial class Migration_01
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -182,6 +182,26 @@ namespace WheelOfFortune.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("Users");
+                });
+
+            modelBuilder.Entity("WheelOfFortune.Models.Coupon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<DateTime>("ExpirationDate");
+
+                    b.Property<bool>("IsInactive");
+
+                    b.Property<float>("Value");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Coupons");
                 });
 
             modelBuilder.Entity("WheelOfFortune.Models.Transaction", b =>
