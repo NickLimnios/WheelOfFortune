@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using WheelOfFortune.Models;
 
@@ -18,6 +19,6 @@ namespace WheelOfFortune.Controllers
         }
 
         [Authorize]
-        public ViewResult TransactionList() => View(transactionRepository.Transactions);
+        public ViewResult TransactionList() => View(transactionRepository.Transactions.Where(p => p.UserId == Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)));
     }
 }
