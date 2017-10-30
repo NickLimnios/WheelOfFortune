@@ -32,6 +32,24 @@
 
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
+    <Folder Include="Spin2Win\css\" />
+    <Folder Include="Spin2Win\js\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\style.css" />
+    <None Include="wwwroot\index.html" />
+    <None Include="wwwroot\js\index.js" />
+    <None Include="wwwroot\js\Spin2WinWheel.min.js" />
+    <None Include="wwwroot\js\ThrowPropsPlugin.min.js" />
+    <None Include="wwwroot\media\pencil_draw.svg" />
+    <None Include="wwwroot\media\tip_circle.svg" />
+    <None Include="wwwroot\media\tip_hex.svg" />
+    <None Include="wwwroot\media\tip_oct.svg" />
+    <None Include="wwwroot\media\tip_sqr.svg" />
+    <None Include="wwwroot\media\tip_star.svg" />
+    <None Include="wwwroot\media\tip_triangle.svg" />
+    <None Include="wwwroot\media\wheel_tick.mp3" />
   </ItemGroup>
 
 </Project>
