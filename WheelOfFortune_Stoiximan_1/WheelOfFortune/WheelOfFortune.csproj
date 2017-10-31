@@ -5,6 +5,17 @@
     <UserSecretsId>aspnet-WheelOfFortune_Stoiximan_1-9EAF65E7-92A4-4C8B-837F-E11FF7465974</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+    <WarningLevel>3</WarningLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Data\Migrations\**" />
+    <Content Remove="Data\Migrations\**" />
+    <EmbeddedResource Remove="Data\Migrations\**" />
+    <None Remove="Data\Migrations\**" />
+  </ItemGroup>
+
   <ItemGroup>
     <Compile Remove="Data\DBinitializer2.cs" />
   </ItemGroup>
@@ -30,6 +41,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
   </ItemGroup>
 
+
   <ItemGroup>
     <Folder Include="Data\Migrations\" />
     <Folder Include="Spin2Win\css\" />
@@ -51,5 +63,6 @@
     <None Include="wwwroot\media\tip_triangle.svg" />
     <None Include="wwwroot\media\wheel_tick.mp3" />
   </ItemGroup>
+
 
 </Project>

@@ -183,6 +183,46 @@ namespace WheelOfFortune.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("WheelOfFortune.Models.Coupon", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<DateTime>("ExpirationDate");
+
+                    b.Property<bool>("IsInactive");
+
+                    b.Property<float>("Value");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Coupons");
+                });
+
+            modelBuilder.Entity("WheelOfFortune.Models.Transaction", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<float>("Amount");
+
+                    b.Property<string>("Comment");
+
+                    b.Property<int?>("CouponId");
+
+                    b.Property<DateTime>("TransactionDate");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Transactions");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("WheelOfFortune.Models.ApplicationRole")
