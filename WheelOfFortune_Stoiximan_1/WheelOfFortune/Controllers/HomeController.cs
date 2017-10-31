@@ -29,6 +29,12 @@ namespace WheelOfFortune.Controllers
             return View();
         }
 
+        public IActionResult PlayWheelOfFortune()
+        {
+            return View();
+        }
+
+
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
