@@ -50,7 +50,7 @@
 
   <ItemGroup>
     <None Include="wwwroot\css\style.css" />
-    <None Include="wwwroot\index.html" />
+    <None Include="wwwroot\OLD_index_DELETETHIS_LATER.html" />
     <None Include="wwwroot\js\index.js" />
     <None Include="wwwroot\js\Spin2WinWheel.min.js" />
     <None Include="wwwroot\js\ThrowPropsPlugin.min.js" />
