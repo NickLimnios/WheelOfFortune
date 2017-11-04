@@ -27,7 +27,7 @@ namespace WheelOfFortune
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(Configuration.GetConnectionString("WheelOfFortuneContext")));
             services.AddIdentity<ApplicationUser, ApplicationRole>().AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
 
             // Add application services.
@@ -40,6 +40,9 @@ namespace WheelOfFortune
             // Add Authorization
             services.AddAuthorization(options => {options.AddPolicy("RequireAuthenticatedUser", policy => policy.RequireAuthenticatedUser());});
             services.AddAuthorization(options => {options.AddPolicy("RequiredAdministrator", policy => policy.RequireRole("Admin")); });
+
+            services.AddDbContext<WheelOfFortuneContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("WheelOfFortuneContext")));
 
         }
 

@@ -40,9 +40,11 @@
 
                     @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAuthenticatedUser")).Succeeded){
                         <li><a asp-area="" asp-controller="Transaction" asp-action="TransactionList">Transactions</a></li> }
-                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequiredAdministrator")).Succeeded){
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAuthenticatedUser")).Succeeded){
                         <li><a asp-area="" asp-controller="Coupon" asp-action="CouponList">Coupons</a></li>}
-
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequiredAdministrator")).Succeeded)
+                    {
+                        <li><a asp-area="" asp-controller="AdminCoupons" asp-action="Index">Admin Coupon</a></li>}
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
