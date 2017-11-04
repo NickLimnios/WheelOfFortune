@@ -8,13 +8,14 @@ namespace WheelOfFortune.Models
 {
     public class EFCouponRepository : ICouponsRepository
     {
-        private ApplicationDbContext context;
+        private readonly ApplicationDbContext context;
 
         public EFCouponRepository(ApplicationDbContext ctx)
         {
             context = ctx;
         }
 
-        public IEnumerable<Coupon> Coupons => context.Coupons;
+        public IEnumerable<Coupon> Coupons => context.GetDBSet<Coupon>();
+        
     }
 }

@@ -256,7 +256,7 @@ namespace WheelOfFortune.Controllers
                 await _userManager.AddToRoleAsync(user, "User");
 
                 //Add Initial Balance after Registration
-                _applicationDbContext.Transactions.Add(new Transaction { UserId = user.Id, Amount = 10, Comment = "Initial Balance", TransactionDate = DateTime.Now });
+                _applicationDbContext.GetDBSet<Transaction>().Add(new Transaction { UserId = user.Id, Amount = 10, Comment = "Initial Balance", TransactionDate = DateTime.Now });
                 await _applicationDbContext.SaveChangesAsync();
 
                 if (result.Succeeded)
