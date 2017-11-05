@@ -36,13 +36,13 @@
                     <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
                     <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="PlayWheelOfFortune">Spin The Wheel</a></li>
 
                     @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAuthenticatedUser")).Succeeded){
                         <li><a asp-area="" asp-controller="Transaction" asp-action="TransactionList">Transactions</a></li> }
                     @if ((await AuthorizationService.AuthorizeAsync(User, "RequiredAdministrator")).Succeeded){
                         <li><a asp-area="" asp-controller="Coupon" asp-action="CouponList">Coupons</a></li>}
-
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAuthenticatedUser")).Succeeded){
+                        <li><a asp-area="" asp-controller="Home" asp-action="PlayWheelOfFortune">Spin The Wheel</a></li>}
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>

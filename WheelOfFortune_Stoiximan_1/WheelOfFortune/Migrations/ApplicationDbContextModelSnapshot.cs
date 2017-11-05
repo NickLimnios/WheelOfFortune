@@ -200,7 +200,7 @@ namespace WheelOfFortune.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coupons");
+                    b.ToTable("Coupon");
                 });
 
             modelBuilder.Entity("WheelOfFortune.Models.Transaction", b =>
@@ -220,7 +220,7 @@ namespace WheelOfFortune.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transactions");
+                    b.ToTable("Transaction");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

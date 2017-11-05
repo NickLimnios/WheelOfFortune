@@ -43,6 +43,9 @@ namespace WheelOfFortune.Data
             //Customize Application Role
             builder.Entity<ApplicationRole>().ToTable("Roles");
 
+            builder.Entity<Transaction>().ToTable("Transaction");
+            builder.Entity<Coupon>().ToTable("Coupon");
+
             //to do 
             // add Foreign Key like this (Entity<user>hasmany(table).withone(user)
             // add Primary Key
