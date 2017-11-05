@@ -251,8 +251,8 @@ namespace WheelOfFortune.Controllers
                     user.Image = memoryStream.ToArray();
                 }
 
+                //TODO : SAVE USER / USERROLE / INITIAL TRANSACTION in the same transaction
                 var result = await _userManager.CreateAsync(user, model.Password);
-                //AddToRoleAsync DOESN'T CHECK THE NAME as the method suggest BUT THE NormalizedName!!!
                 await _userManager.AddToRoleAsync(user, "User");
 
                 //Add Initial Balance after Registration
