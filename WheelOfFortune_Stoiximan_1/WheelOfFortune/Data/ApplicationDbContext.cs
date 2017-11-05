@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WheelOfFortune.Models;
+using WheelOfFortune.Interfaces;
 
 namespace WheelOfFortune.Data
 {
@@ -13,9 +14,14 @@ namespace WheelOfFortune.Data
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options){}
 
-        public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<Coupon> Coupons { get; set; }
+        //public DbSet<Transaction> Transactions { get; set; }
+       // public DbSet<Coupon> Coupons { get; set; }
 
+
+        public DbSet<T> GetDBSet<T> () where T : class, IEntity
+        {
+            return this.Set<T>();
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
@@ -36,6 +42,13 @@ namespace WheelOfFortune.Data
 
             //Customize Application Role
             builder.Entity<ApplicationRole>().ToTable("Roles");
+
+            //to do 
+            // add Foreign Key like this (Entity<user>hasmany(table).withone(user)
+            // add Primary Key
+
+
+
         }
     }
 }

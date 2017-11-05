@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using WheelOfFortune.Data;
+using WheelOfFortune.Interfaces;
 
 namespace WheelOfFortune.Models
 {
-    public class Transaction
+    public class Transaction : IEntity
     {
         public int Id { get; set; }
         public int UserId { get; set; }
