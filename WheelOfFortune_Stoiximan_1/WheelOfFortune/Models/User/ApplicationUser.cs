@@ -13,5 +13,6 @@ namespace WheelOfFortune.Models
         public string ImageUrl { get; set; }
         public byte[] Image { get; set; }
         
+        public List<Transaction> Transactions { get; set; }
     }
 }
