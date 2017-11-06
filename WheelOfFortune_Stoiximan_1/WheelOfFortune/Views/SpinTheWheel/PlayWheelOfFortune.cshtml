@@ -3,45 +3,95 @@
     ViewData["Title"] = "PlayWheelOfFortune";
 
 }
-
-
+@*//Add Initial Balance after Registration
+    _applicationDbContext.Transactions.Add(new Transaction { UserId = user.Id, Amount = 10, Comment = "Initial Balance", TransactionDate = DateTime.Now });
+    await _applicationDbContext.SaveChangesAsync();*@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/css/style.css">
+    <link rel="stylesheet" href="~/css/OurStyleSheet.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
 <body>
-    <link rel="stylesheet" href="/css/style.css">
-    <button class="spinBtn">CLICK TO SPIN!</button>
-    <div class="wheelContainer">
-        <svg class="wheelSVG" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" text-rendering="optimizeSpeed">
-            <defs>
-                <filter id="shadow" x="-100%" y="-100%" width="550%" height="550%">
-                    <feOffset in="SourceAlpha" dx="0" dy="0" result="offsetOut"></feOffset>
-                    <feGaussianBlur stdDeviation="9" in="offsetOut" result="drop" />
-                    <feColorMatrix in="drop" result="color-out" type="matrix" values="0 0 0 0   0
+    <div class="col-sm-9">
+        <button class="spinBtn">CLICK TO SPIN!</button>
+        <div class="wheelContainer">
+            <svg class="wheelSVG" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" text-rendering="optimizeSpeed">
+                <defs>
+                    <filter id="shadow" x="-100%" y="-100%" width="550%" height="550%">
+                        <feOffset in="SourceAlpha" dx="0" dy="0" result="offsetOut"></feOffset>
+                        <feGaussianBlur stdDeviation="9" in="offsetOut" result="drop" />
+                        <feColorMatrix in="drop" result="color-out" type="matrix" values="0 0 0 0   0
               0 0 0 0   0
               0 0 0 0   0
               0 0 0 .3 0" />
-                    <feBlend in="SourceGraphic" in2="color-out" mode="normal" />
-                </filter>
-            </defs>
-            <g class="mainContainer">
-                <g class="wheel">
-                    <!-- <image  xlink:href="http://example.com/images/wheel_graphic.png" x="0%" y="0%" height="100%" width="100%"></image> -->
+                        <feBlend in="SourceGraphic" in2="color-out" mode="normal" />
+                    </filter>
+                </defs>
+                <g class="mainContainer">
+                    <g class="wheel">
+                        <!-- <image  xlink:href="http://example.com/images/wheel_graphic.png" x="0%" y="0%" height="100%" width="100%"></image> -->
+                    </g>
                 </g>
-            </g>
-            <g class="centerCircle" />
-            <g class="wheelOutline" />
-            <g class="pegContainer" opacity="1">
-                <path class="peg" fill="#EEEEEE" d="M22.139,0C5.623,0-1.523,15.572,0.269,27.037c3.392,21.707,21.87,42.232,21.87,42.232 s18.478-20.525,21.87-42.232C45.801,15.572,38.623,0,22.139,0z" />
-            </g>
-            <g class="valueContainer" />
-        </svg>
-        <div class="toast">
-            <p />
+                <g class="centerCircle" />
+                <g class="wheelOutline" />
+                <g class="pegContainer" opacity="1">
+                    <path class="peg" fill="#EEEEEE" d="M22.139,0C5.623,0-1.523,15.572,0.269,27.037c3.392,21.707,21.87,42.232,21.87,42.232 s18.478-20.525,21.87-42.232C45.801,15.572,38.623,0,22.139,0z" />
+                </g>
+                <g class="valueContainer" />
+            </svg>
+            <div class="toast">
+                <p />
+            </div>
         </div>
     </div>
+
+
+    <div class="col-sm-3">
+        <div class="col-sm-4">
+            <button type="button" class=" btn-responsive  ">Get a coupon code!</button>
+        </div>
+        <div class="col-sm-8 mtop5">
+            <h1> <span class=" label label-primary "> My balance is: </span></h1>
+            <h1> <span class=" user_balance label label-info ">XX Euro</span></h1>
+        </div>
+
+    </div>
+    <div class="col-sm-4">
+
+    </div>
+
     <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/TweenMax.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.20.2/utils/Draggable.min.js'></script>
     <script src='/js/ThrowPropsPlugin.min.js'></script>
     <script src='/js/Spin2WinWheel.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/latest/plugins/TextPlugin.min.js'></script>
     <script src="/js/index.js"></script>
+
+    @*<div class="row">
+            <button class="col-sm-4">CLICK TO SPIN!</button>
+            <button class="col-sm-4">CLICK TO SPIN!</button>
+
+            <button class="col-sm-4">CLICK TO SPIN!</button>
+        </div>*@
+
+    @*<div class="form-group">
+            <label asp-for="Email"></label>
+            <input asp-for="Email" class="form-control" />
+            <span asp-validation-for="Email" class="text-danger"></span>
+        </div>*@
+
 </body>
+
+</html>
+
+
+
+
 

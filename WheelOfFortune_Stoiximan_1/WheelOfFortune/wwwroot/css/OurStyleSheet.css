@@ -1,0 +1,53 @@
+﻿.mtop1 {
+    margin-top: 1vh;
+}
+
+.mtop2 {
+    margin-top: 2vh;
+}
+
+.mtop5 {
+    margin-top: 5vh;
+}
+
+
+.mtop10 {
+    margin-top: 10vh;
+}
+
+.mtop20 {
+    margin-top: 20vh;
+}
+
+.mtop35 {
+    margin-top: 35vh;
+}
+
+@media (max-width: 768px) {
+    .btn-responsive {
+        padding: 2px 4px;
+        font-size: 70%;
+        line-height: 1;
+        border-radius: 3px;
+    }
+}
+
+@media (min-width: 769px)  {
+    .btn-responsive {
+        padding: 4px 8px;
+        font-size: 100%;
+        line-height: 1.2;
+    }
+}
+
+
+/*@media (min-width: 769px) and (max-width: 992px) {
+    .btn-responsive {
+        padding: 4px 9px;
+        font-size: 90%;
+        line-height: 1.2;
+    }
+}*/
+
+
+
