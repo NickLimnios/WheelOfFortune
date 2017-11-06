@@ -200,7 +200,7 @@ namespace WheelOfFortune.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Coupon");
+                    b.ToTable("Coupons");
                 });
 
             modelBuilder.Entity("WheelOfFortune.Models.Transaction", b =>
@@ -220,7 +220,9 @@ namespace WheelOfFortune.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Transaction");
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Transactions");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
@@ -265,6 +267,15 @@ namespace WheelOfFortune.Migrations
                     b.HasOne("WheelOfFortune.Models.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("WheelOfFortune.Models.Transaction", b =>
+                {
+                    b.HasOne("WheelOfFortune.Models.ApplicationUser", "User")
+                        .WithMany("Transactions")
+                        .HasForeignKey("UserId")
+                        .HasConstraintName("FKTransactionsUsers")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
