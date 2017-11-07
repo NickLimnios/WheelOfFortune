@@ -5,7 +5,7 @@
 function getBalance() {
 
     $.ajax({
-        url: urls.balanceUrls,
+        url: urls.balanceUrl,
         type: 'GET',
         data: { amount: 'balance' }
 
@@ -16,3 +16,22 @@ function getBalance() {
         alert('fail');
     });
 }
+
+$('#js-spinWheel-Btn').click(function () {
+    $.ajax({
+        url: urls.spinUrl,
+        type: 'GET',
+        data: { theSpinResult: 'spinResult' }
+
+    }).done(function (data) {
+        document.getElementById('userBalance').innerText = "The spin was: " + data.spinResult;
+
+    }).fail(function () {
+        alert('fail');
+    })
+})
+
+//    function userSpinWheel() {
+
+//    }))
+//}

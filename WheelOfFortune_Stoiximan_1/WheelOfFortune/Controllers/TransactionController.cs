@@ -24,7 +24,7 @@ namespace WheelOfFortune.Controllers
 
         //Should this be moved to a service or something similar?
         [HttpGet]
-        [Authorize]
+        [Authorize]//is this enough for security purposes?
         public IActionResult GetUserBalance()
         {
             
@@ -33,6 +33,17 @@ namespace WheelOfFortune.Controllers
                 Sum(t => t.Amount);
 
             return Json(new { balance = userBalance });
+        }
+
+        //Should this be moved to a service or something similar?
+        [HttpGet]
+        [Authorize]//is this enough for security purposes?
+        public IActionResult UserSpinTheWheel()
+        {
+
+            string spinServerResult = "Won";
+
+            return Json(new { spinResult = spinServerResult });
         }
     }
 }
