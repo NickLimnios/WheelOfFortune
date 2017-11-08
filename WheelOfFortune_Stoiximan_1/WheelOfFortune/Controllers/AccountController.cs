@@ -251,12 +251,12 @@ namespace WheelOfFortune.Controllers
                     user.Image = memoryStream.ToArray();
                 }
 
+                //TODO : SAVE USER / USERROLE / INITIAL TRANSACTION in the same transaction
                 var result = await _userManager.CreateAsync(user, model.Password);
-                //AddToRoleAsync DOESN'T CHECK THE NAME as the method suggest BUT THE NormalizedName!!!
                 await _userManager.AddToRoleAsync(user, "User");
 
                 //Add Initial Balance after Registration
-                _applicationDbContext.Transactions.Add(new Transaction { UserId = user.Id, Amount = 10, Comment = "Initial Balance", TransactionDate = DateTime.Now });
+                _applicationDbContext.GetDBSet<Transaction>().Add(new Transaction { UserId = user.Id, Amount = 10, Comment = "Initial Balance", TransactionDate = DateTime.Now });
                 await _applicationDbContext.SaveChangesAsync();
 
                 if (result.Succeeded)

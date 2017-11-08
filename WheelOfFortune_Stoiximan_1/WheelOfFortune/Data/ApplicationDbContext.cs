@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WheelOfFortune.Models;
+using WheelOfFortune.Interfaces;
 
 namespace WheelOfFortune.Data
 {
@@ -12,30 +13,39 @@ namespace WheelOfFortune.Data
     {
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options){}
-
-        public DbSet<Transaction> Transactions { get; set; }
-        public DbSet<Coupon> Coupons { get; set; }
-
+        
+        public DbSet<T> GetDBSet<T> () where T : class, IEntity
+        {
+            return this.Set<T>();
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
-
-            // Customize the ASP.NET Identity model and override the defaults if needed.
-            // For example, you can rename the ASP.NET Identity table names and more.
-            // Add your customizations after calling base.OnModelCreating(builder);
+            
             ModelCustomize(builder);
-
         }
 
         private void ModelCustomize(ModelBuilder builder)
         {
-            //Customize Application User
+            //Users
             builder.Entity<ApplicationUser>().ToTable("Users");
             builder.Entity<ApplicationUser>(p => p.Property(c => c.Email).HasColumnName("EmailAddress"));
 
-            //Customize Application Role
+            //Roles
             builder.Entity<ApplicationRole>().ToTable("Roles");
+
+            //Transaction
+            builder.Entity<Transaction>().ToTable("Transactions");
+            builder.Entity<Transaction>()
+                .HasOne(p => p.User)
+                .WithMany(p => p.Transactions)
+                .HasForeignKey(p => p.UserId)
+                .HasConstraintName("FKTransactionsUsers");
+
+            //Coupon
+            builder.Entity<Coupon>().ToTable("Coupons");
+
         }
     }
 }

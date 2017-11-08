@@ -8,13 +8,13 @@ namespace WheelOfFortune.Models
 {
     public class EFTransactionRepository : ITransactionRepository
     {
-        private ApplicationDbContext context;
+        private readonly ApplicationDbContext context;
 
         public EFTransactionRepository(ApplicationDbContext ctx)
         {
             context = ctx;
         }
 
-        public IEnumerable<Transaction> Transactions => context.Transactions;
+        public IEnumerable<Transaction> Transactions => context.GetDBSet<Transaction>();
     }
 }
