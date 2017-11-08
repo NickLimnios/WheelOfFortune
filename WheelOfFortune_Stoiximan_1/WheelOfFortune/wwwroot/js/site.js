@@ -20,11 +20,17 @@ function getBalance() {
 $('#js-spinWheel-Btn').click(function () {
     $.ajax({
         url: urls.spinUrl,
-        type: 'GET',
-        data: { theSpinResult: 'spinResult' }
+        type: 'POST',
+        data: {
+            spinBetAmount: document.getElementById('js-userSpinAmountInput').value,
+            spinStatusResponce: 'spinStatus',
+            userPlacedAmountResponce: 'userPlacedAmount'
+        }
 
     }).done(function (data) {
-        document.getElementById('userBalance').innerText = "The spin was: " + data.spinResult;
+
+        //alert(data.spinStatus + data.userPlacedAmount);
+        //document.getElementById('userBalance').innerText = "The spin was: " + data.spinStatus;
 
     }).fail(function () {
         alert('fail');

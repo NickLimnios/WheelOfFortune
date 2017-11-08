@@ -35,15 +35,5 @@ namespace WheelOfFortune.Controllers
             return Json(new { balance = userBalance });
         }
 
-        //Should this be moved to a service or something similar?
-        [HttpGet]
-        [Authorize]//is this enough for security purposes?
-        public IActionResult UserSpinTheWheel()
-        {
-
-            string spinServerResult = "Won";
-
-            return Json(new { spinResult = spinServerResult });
-        }
     }
 }
