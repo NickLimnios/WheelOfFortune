@@ -44,7 +44,7 @@ namespace WheelOfFortune.Controllers
             }
             //else
 
-            DoStuff();
+            ApplySpinResultToTransaction();
 
             return Json(new
             {
@@ -60,21 +60,13 @@ namespace WheelOfFortune.Controllers
             //Check for NON-LEGIT values as well as if amount <= USER.BALANCE
             return true;
         }
-        private  void DoStuff()
+        private  void ApplySpinResultToTransaction()
         {
-            //var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
-            //if (user == null)
-            //{
-            //    throw new ApplicationException($"Unable to load two-factor authentication user.");
-            //}
-
             _applicationDbContext.GetDBSet<Transaction>().Add(new Transaction
             {
-                UserId =1,
-                Amount = /*new Random().Next(-10, 10)*/ 20,
-                Comment = "Wheel Spin",
-                TransactionDate = DateTime.Now
+                UserId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value), Amount = new Random().Next(-10, 10), Comment = "Wheel Spin",TransactionDate = DateTime.Now
             });
+            //TODO SOMETIMES IT CRASHES HERE!!! WHY????
              _applicationDbContext.SaveChangesAsync();
         }
     }

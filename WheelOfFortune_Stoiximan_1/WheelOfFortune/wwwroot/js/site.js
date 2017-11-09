@@ -28,6 +28,7 @@ $('#js-spinWheel-Btn').click(function () {
         }
 
     }).done(function (data) {
+        getBalance();
 
         //alert(data.spinStatus + data.userPlacedAmount);
         //document.getElementById('userBalance').innerText = "The spin was: " + data.spinStatus;
