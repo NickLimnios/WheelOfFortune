@@ -18,7 +18,8 @@ function loadJSON(callback) {
 //your own function to capture the spin results
 function myResult(e) {
   //e is the result object
-    console.log('Spin Count: ' + e.spinCount + ' - ' + 'Win: ' + e.win + ' - ' + 'Message: ' +  e.msg);
+    console.log('Spin Count: ' + e.spinCount + ' - ' + 'Win: ' + e.win + ' - ' + 'Message: ' + e.msg);
+
 
     // if you have defined a userData object...
     if(e.userData){
@@ -58,7 +59,7 @@ function init() {
     // Parse JSON string to an object
     var jsonData = JSON.parse(response);
     //if you want to spin it using your own button, then create a reference and pass it in as spinTrigger
-    var mySpinBtn = document.querySelector('.spinBtn');
+    var mySpinBtn = document.querySelector('#js-spinWheel-Btn');
     //create a new instance of Spin2Win Wheel and pass in the vars object
     var myWheel = new Spin2WinWheel();
     
