@@ -81,6 +81,10 @@ namespace WheelOfFortune
                       name: "Transaction",
                       template: "{controller=Transaction}/{action=TransactionList}/{id?}");
 
+                routes.MapRoute(
+                      name: "SpinTheWheelController",
+                      template: "{controller=SpinTheWheel}/{action=PlayWheelOfFortune}/{id?}");
+
             });
             
         
