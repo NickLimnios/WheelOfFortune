@@ -38,14 +38,16 @@ namespace WheelOfFortune.Controllers
             {
                 return Json(new
                 {
-                    spinStatus = "Not valid spin",
+                    spinStatus = "Not a valid spin",
                     userPlacedAmount = spinBetAmount
                 });
             }
             //else
 
-            ApplySpinResultToTransaction();
+            //Do transaction
+            ApplySpinResultToTransaction(ServerSpinResult(spinBetAmount));
 
+            //Reply to client the result.
             return Json(new
             {
                 spinStatus = "Valid spin",
@@ -56,18 +58,35 @@ namespace WheelOfFortune.Controllers
 
         private bool UserAbleToSpin(float AmountToSpinFor)
         {
-            //TODO Fix this proper
-            //Check for NON-LEGIT values as well as if amount <= USER.BALANCE
-            return true;
+            //TODO make 0f a StaRes(static resource) value, controllable by admin(or code or something)?
+            return AmountToSpinFor > 0f && AmountToSpinFor  <= UserBalance();
         }
-        private  void ApplySpinResultToTransaction()
+
+        private float UserBalance()
+        {
+            float userBalance = _applicationDbContext.GetDBSet<Transaction>().
+                Where(u => u.UserId == Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)).
+                Sum(t => t.Amount);
+            return userBalance;
+        }
+
+
+        private float ServerSpinResult(float bet)
+        {
+            return new Random().Next((int)MathF.Ceiling(-bet), (int)MathF.Ceiling(bet));
+        }
+
+        private void ApplySpinResultToTransaction(float spinResultToWrite)
         {
             _applicationDbContext.GetDBSet<Transaction>().Add(new Transaction
             {
-                UserId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value), Amount = new Random().Next(-10, 10), Comment = "Wheel Spin",TransactionDate = DateTime.Now
+                UserId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value),
+                Amount = spinResultToWrite,
+                Comment = "Wheel Spin",
+                TransactionDate = DateTime.Now
             });
-            //TODO SOMETIMES IT CRASHES HERE!!! WHY????
-             _applicationDbContext.SaveChangesAsync();
+            //TODO SOMETIMES IT CRASHES HERE!!! WHY???? it crashes if you spin and change immidiatly tab.
+            _applicationDbContext.SaveChangesAsync();
         }
     }
 }

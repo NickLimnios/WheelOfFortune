@@ -28,8 +28,9 @@ $('#js-spinWheel-Btn').click(function () {
         }
 
     }).done(function (data) {
+        if (data.spinStatus == "Not a valid spin")//TODO This is quick and dirty Fix it properly.
+        { alert("Not a valid spin came from server. Fix this properly.") }
         getBalance();
-
         //alert(data.spinStatus + data.userPlacedAmount);
         //document.getElementById('userBalance').innerText = "The spin was: " + data.spinStatus;
 
