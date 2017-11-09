@@ -14,5 +14,10 @@ namespace WheelOfFortune.Models
         }
 
         public DbSet<WheelOfFortune.Models.AdminCoupon> AdminCoupon { get; set; }
+
+        internal void Update(AdminCoupon adminCoupon, Func<object, object> p)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

@@ -54,7 +54,7 @@ namespace WheelOfFortune.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(AdminCoupon adminCoupon)
         {      
-            int Value = adminCoupon.Value;
+            int? Value = adminCoupon.Value;
 
             _context.Add(adminCoupon);
             DateTime CreationDate = DateTime.Now;
@@ -94,6 +94,7 @@ namespace WheelOfFortune.Controllers
             {
                 try
                 {
+                    adminCoupon.Status = "Revoked";
                     _context.Update(adminCoupon);
                     await _context.SaveChangesAsync();
                 }
@@ -147,4 +148,6 @@ namespace WheelOfFortune.Controllers
             return _context.AdminCoupon.Any(e => e.ID == id);
         }
     }
+
+
 }
