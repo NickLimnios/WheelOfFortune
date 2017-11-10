@@ -17,7 +17,7 @@ namespace WheelOfFortune.Controllers
             repository = repo;
         }
 
-        [Authorize(Roles = "User")]
+        [Authorize]
         public ViewResult CouponList() => View(repository.Coupons);
     }
 }
