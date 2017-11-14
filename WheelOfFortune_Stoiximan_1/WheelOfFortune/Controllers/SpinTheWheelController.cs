@@ -8,6 +8,9 @@ using System.Threading.Tasks;
 using WheelOfFortune.Data;
 using WheelOfFortune.Models;
 using Microsoft.AspNetCore.Identity;
+using WheelOfFortune.Helpers;
+using WheelOfFortune.Models.Wheels;
+using System.Diagnostics;
 
 namespace WheelOfFortune.Controllers
 {
@@ -16,10 +19,36 @@ namespace WheelOfFortune.Controllers
         private ApplicationDbContext _applicationDbContext;
         private readonly SignInManager<ApplicationUser> _signInManager;
 
+        //TODO Replace this once the wheel becomes proper. 
+       private int serverProvidedWheel_ID = 1;
+
         public SpinTheWheelController(ApplicationDbContext applicationDbContext, SignInManager<ApplicationUser> signInManager)
         {
             _applicationDbContext = applicationDbContext;
             _signInManager = signInManager;
+        }
+
+        [HttpGet]
+        public IActionResult RequestCurrentWheel()
+        {
+            //Mock Data.Also delete this from Wheel.cs
+            var tempWheel = new Wheel();
+
+            #region Code that should execute when admin creates and saves a wheel. MOVE IT AWAY FROM HERE.
+            //Mock Data 
+            List<WheelSliceContainer> createdSlices = new List<WheelSliceContainer>();
+            var lol = new WheelSliceContainer() { probability = 25, resultText = "Wow, you won!", type = "string", userData = new string[] { "score something" }, value = "win x2", win = true };
+            var lol1 = new WheelSliceContainer() { probability = 25, resultText = "Yay, you won!", type = "string", userData = new string[] { "score something" }, value = "win x2", win = true };
+            var lol2 = new WheelSliceContainer() { probability = 25, resultText = "Oh noes! Better luck next Roll", type = "string", userData = new string[] { "score something" }, value = "loose x1", win = false };
+            var lol3 = new WheelSliceContainer() { probability = 25, resultText = "Oops! Try again?", type = "string", userData = new string[] { "score something" }, value = "loose x1", win = false };
+            createdSlices.AddRange(new WheelSliceContainer[] { lol, lol1, lol2, lol3,lol1,lol3 });
+            tempWheel.Id = serverProvidedWheel_ID;
+            tempWheel.WheelSlices_ToString(createdSlices);
+            #endregion
+
+            //Here we should provide the Database.getCurrentWheel.wheel.AllWheelSlices;
+            //server.getwheel
+            return Json(tempWheel.GenerateWheelJson());
         }
 
         [Authorize(Roles = "User")]
@@ -94,8 +123,9 @@ namespace WheelOfFortune.Controllers
         #region User eligible to spin
         private string GetCurrentSpinHash()
         {
-            //TODO IMPLEMENT properly :p
-            return "CurrentSpinWheelHash-ish";
+            //TODO IMPLEMENT properly.
+            //Server.GetCurrentWheel.Id
+            return serverProvidedWheel_ID + "";
         }
 
         private bool UserSufficentBalance(float AmountToSpinFor)

@@ -7,5 +7,6 @@ namespace WheelOfFortune.Models.Wheels
 {
     public class IWheelRepo
     {
+        IEnumerable<Wheel> Wheels { get; }
     }
 }
