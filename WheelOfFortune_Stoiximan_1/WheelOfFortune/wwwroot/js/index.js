@@ -24,7 +24,7 @@ function myResult(e) {
     // if you have defined a userData object...
     if (e.userData) {
 
-        console.log('User defined score: ' + e.userData.score)
+        console.log('User defined score: ' + e.userData.SliceMultiplier)
 
     }
 

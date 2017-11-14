@@ -33,6 +33,6 @@ namespace WheelOfFortune.Helpers
         public string resultText { get; set; }
 
         //userData - Object - an optional object that can contain custom data for retrieval in the onResult event
-        public string[] userData { get; set; }
+        public WheelSlice_UserData userData { get; set; }
     }
 }
