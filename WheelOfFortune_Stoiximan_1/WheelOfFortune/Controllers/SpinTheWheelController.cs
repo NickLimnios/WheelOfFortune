@@ -149,9 +149,10 @@ namespace WheelOfFortune.Controllers
         #region Resolve spin action
         private int GetNextRestingWheelSlice()
         {
-            List<WheelSliceContainer> tempSlices = new List<WheelSliceContainer>();
-            tempSlices.AddRange(JsonConvert.DeserializeObject<List<WheelSliceContainer>>(tempWheel.AllWheelSlices.Replace("\"segmentValuesArray\" :", "")));
-            return RndGen.probabilityBasedRnd(tempSlices.Select<WheelSliceContainer, string>(x => x.probability.ToString()).ToArray());
+
+            //Converts slices in a string to a json then deserializes and then based on the probability of each it retruns an int.
+            return RndGen.probabilityBasedRnd(WheelJsonHelper.GetWheelSlicesFromString(tempWheel.AllWheelSlices)
+                .Select<WheelSliceContainer, string>(x => x.probability.ToString()).ToArray());
         }
 
         private float ServerSpinAmountResult(int restingSlice, float bet)
@@ -163,10 +164,8 @@ namespace WheelOfFortune.Controllers
         //This should return the percentage to multiply with the bet. It could be negative multiplier.
         private float ResolveRestingSliceValue(int _restingSlice)
         {
-            //TODO Refactor. This is a bit dirty?
-            List<WheelSliceContainer> tempSlices = new List<WheelSliceContainer>();
-            tempSlices.AddRange(JsonConvert.DeserializeObject<List<WheelSliceContainer>>(tempWheel.AllWheelSlices.Replace("\"segmentValuesArray\" :", "")));
-            return tempSlices[_restingSlice].userData.SliceMultiplier;
+            //Get the user value to multiply it with the bet.
+            return WheelJsonHelper.GetWheelSlicesFromString(tempWheel.AllWheelSlices)[_restingSlice].userData.SliceMultiplier;
 
         }
 

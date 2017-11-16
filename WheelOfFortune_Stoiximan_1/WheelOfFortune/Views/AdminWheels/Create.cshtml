@@ -1,0 +1,66 @@
+﻿@{
+    ViewData["Title"] = "Create Wheel";
+}
+
+<h4>Wheel Generation</h4>
+<hr />
+
+<div>
+    <button type="button" id="addSlice">Add Slice</button>
+</div>
+
+@*<div>
+    <label> Slice probability</label>
+    <label> Slice text</label>
+    <label> Slice user bet multiplier</label>
+    <label> Slice toast text</label>
+    <label> winning slice?</label>
+</div>*@
+
+<table id="slices">
+    <thead>
+        <tr>
+            <th>Slice probability</th>
+            <th>Text</th>
+            <th>User bet multiplier</th>
+            <th>Toast text</th>
+            <th>Is this a winning slice?</th>
+        </tr>
+    </thead>
+    <tbody></tbody>
+</table>
+
+<div>
+    @Html.Label("Also mark generated wheel as active")
+    @Html.CheckBox("makeActive")
+</div>
+<input type="submit" value="Generate wheel" id="js-btn-createWheel" />
+
+<script>
+    $("#addSlice").on("click", function () {
+        $.ajax({
+            url: '@Url.Action("AddSlice", "AdminWheels")',
+            type: 'GET'
+        }).success(function (partialView) {
+            $('#slices> tbody').append(partialView);
+        });
+    });
+
+    $("#js-btn-createWheel").on("click", function () {
+        $.ajax({
+            url: '@Url.Action("CreateWheel", "AdminWheels")',
+            type: 'POST',
+            data: $("#slices").serialize(),
+        }).success(function (partialView) {
+        });
+            });
+</script>
+
+<div>
+    <a asp-action="Index">Back to wheels List</a>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

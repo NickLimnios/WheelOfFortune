@@ -33,6 +33,15 @@ function getServerWheelHash() {
     });
 }
 
+function createSlice() {
+            $.ajax({
+                url: '@Url.Action("AddSlice", "AdminWheels")',
+                type: 'GET'
+            }).success(function (partialView) {
+                $('#slices').append(partialView);
+            });
+}
+
 //Listener when the user presses the spin Btn in STW tab
 //function requestServerSpin() {
 //    $.ajax({
