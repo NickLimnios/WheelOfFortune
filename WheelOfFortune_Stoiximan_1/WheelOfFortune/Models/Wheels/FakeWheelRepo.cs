@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using WheelOfFortune.Controllers;
 
-namespace WheelOfFortune.Managers
+namespace WheelOfFortune.Models.Wheels
 {
-    public class RollManager :IRollManager
+    public class FakeWheelRepo
     {
     }
 }
