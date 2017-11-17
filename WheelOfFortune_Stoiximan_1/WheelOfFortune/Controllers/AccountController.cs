@@ -287,7 +287,7 @@ namespace WheelOfFortune.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(AccountController.Login), "Account");
         }
 
         //
@@ -383,7 +383,7 @@ namespace WheelOfFortune.Controllers
         {
             if (userId == null || code == null)
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(AccountController.Login), "Account");
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -515,7 +515,7 @@ namespace WheelOfFortune.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(ManageController.Index), "Manage");
             }
         }
 

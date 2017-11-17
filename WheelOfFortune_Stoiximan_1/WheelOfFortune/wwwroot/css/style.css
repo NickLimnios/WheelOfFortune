@@ -14,12 +14,12 @@
 .toast, .wheelContainer, body, html {
  text-align: center;
 }
-.wheelContainer, button {
- transform: translate(-50%, 0);
+.wheelContainer, .wof-button {
+    transform: translate(-50%, 0);
 }
-.toast, button {
- position: absolute;
- background-color: #E81D62;
+.toast, .wof-button {
+    position: absolute;
+    background-color: #E81D62;
 }
 body {
  background-color: #2d2d2d;
@@ -70,7 +70,7 @@ body, html {
  -webkit-transition: line-height .2s ease;
  transition: line-height .2s ease;
 }
-button {
+.wof-button {
  left:50%;
  width: 80%;
  top: 60px;
@@ -108,17 +108,17 @@ button {
   font-size: 33px;
   line-height: 35px;
  }
- button {
-  font-size: 22px;
-  padding: 10px;
-  width: 40%;
- }
+    .wof-button {
+        font-size: 22px;
+        padding: 10px;
+        width: 40%;
+    }
  .wheelContainer {
   top: 70px;
  }
 }
-button:focus {
- outline: 0;
+.wof-button:focus {
+    outline: 0;
 }
 
 
