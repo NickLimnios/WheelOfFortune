@@ -32,6 +32,7 @@ namespace WheelOfFortune.Models.AccountViewModels
 
         [Required]
         //[Maybe a max size]
+        [DataType(DataType.ImageUrl)]
         [Display (Name = "Photo")]
         public IFormFile Image { get; set; }
        
