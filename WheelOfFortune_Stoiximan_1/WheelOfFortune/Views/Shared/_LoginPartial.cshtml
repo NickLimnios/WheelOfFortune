@@ -14,7 +14,10 @@
         <ul class="nav navbar-nav navbar-right">
             <li>
                 <script>getBalance()</script>
-                <label class="label-primary"  title="My Balance" id="userBalance"></label>
+                <text style="color:white" class="navbar-text" title="My Balance" id="userBalance"></text>
+            </li>
+            <li>
+                
                 <a asp-area="" asp-controller="Manage" asp-action="Index" title="Manage">Hello @UserManager.GetUserName(User)!</a>
             </li>
             <li>
