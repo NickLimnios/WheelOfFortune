@@ -4,7 +4,12 @@
     ViewData["Title"] = "TransactionList";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+@if (User.IsInRole("User"))
+{
+<p>
+    <a asp-action="GetCoupon">Get your Coupon here!</a>
+</p>
+}
 <h2>Transaction List</h2>
 
 <table class="table">

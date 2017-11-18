@@ -6,6 +6,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using WheelOfFortune.Models;
+using System.Text;
+using System.ComponentModel;
 
 namespace WheelOfFortune.Controllers
 {
@@ -20,6 +22,12 @@ namespace WheelOfFortune.Controllers
 
         // GET: AdminCoupons
         public async Task<IActionResult> Index()
+        {
+            return View(await _context.AdminCoupon.ToListAsync());
+        }
+
+        // GET: AdminCoupons/GetCoupon
+        public async Task<IActionResult> GetCoupon()
         {
             return View(await _context.AdminCoupon.ToListAsync());
         }
@@ -53,7 +61,7 @@ namespace WheelOfFortune.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         public async Task<IActionResult> Create(AdminCoupon adminCoupon)
-        {      
+        {
             int? Value = adminCoupon.Value;
 
             _context.Add(adminCoupon);
@@ -173,10 +181,9 @@ namespace WheelOfFortune.Controllers
             var adminCoupon = await _context.AdminCoupon.SingleOrDefaultAsync(m => m.ID == id);
             adminCoupon.Status = "Distributed";
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
+            ViewBag.Message = "Congratulations!!Your Code is: " + adminCoupon.Code;
+            return View();
+
         }
-
     }
-
-
 }

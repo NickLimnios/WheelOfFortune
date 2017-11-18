@@ -22,6 +22,12 @@ namespace WheelOfFortune.Controllers
         public ViewResult TransactionList() => View(transactionRepository.Transactions
             .Where(p => p.UserId == Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value)));
 
+        [Authorize(Roles = "User")]
+        public ActionResult GetCoupon()
+        {
+            return RedirectToAction("GetCoupon", "AdminCoupons");
+        }
+
         //Should this be moved to a service or something similar?
         [HttpGet]
         [Authorize]//is this enough for security purposes?
