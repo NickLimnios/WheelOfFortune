@@ -1,18 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
+using WheelOfFortune.Models.Wheels;
 
 namespace WheelOfFortune.Models
 {
     public class WheelOfFortuneContext : DbContext
     {
-        public WheelOfFortuneContext (DbContextOptions<WheelOfFortuneContext> options)
+        public WheelOfFortuneContext(DbContextOptions<WheelOfFortuneContext> options)
             : base(options)
         {
         }
 
-        public DbSet<WheelOfFortune.Models.AdminCoupon> AdminCoupon { get; set; }
+        public DbSet<AdminCoupon> AdminCoupon { get; set; }
+        public DbSet<Wheel> AdminWheels { get; set; }
     }
 }

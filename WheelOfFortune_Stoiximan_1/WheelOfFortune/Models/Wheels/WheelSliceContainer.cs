@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace WheelOfFortune.Helpers
+namespace WheelOfFortune.Models.Wheels
 {
     public class WheelSliceContainer
     {
