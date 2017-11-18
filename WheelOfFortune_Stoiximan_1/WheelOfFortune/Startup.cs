@@ -72,7 +72,7 @@ namespace WheelOfFortune
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=Login}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
 
                   routes.MapRoute(
                       name: "Coupon",

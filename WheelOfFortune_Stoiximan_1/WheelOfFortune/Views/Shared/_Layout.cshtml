@@ -38,7 +38,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            <a class="navbar-brand">WheelOfFortune</a>
+                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">WheelOfFortune</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -57,10 +57,7 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2017 - WheelOfFortune</p>
-        </footer>
+        
     </div>
 
     <environment include="Development">
@@ -85,5 +82,6 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+    
 </body>
 </html>
