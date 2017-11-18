@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
+
 
 // For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -16,14 +18,14 @@ namespace WheelOfFortune.Models
         //    return View();
         //}
         public int ID { get; set; }
-        private string Code1;
-        public string Code
+        private static string Code1;
+        public static string Code
         {
             get { return Code1 ?? Guid.NewGuid().ToString("N").Substring(0, 6); }
 
-            set { Code1 = value; } } //the code for the user to redeem it.
+            set { Code1 = value; } } 
 
-        public int Value { get; set; } //value the user will receive after redeeming
+        public int? Value { get; set; } 
 
         private DateTime? creationDate;
         public DateTime CreationDate
@@ -31,6 +33,10 @@ namespace WheelOfFortune.Models
             get { return creationDate ?? DateTime.Now; }
             set {creationDate = value; }
         }
-        public string Status { get; set; }  
+        private string status;
+        public string Status {
+            get { return status ?? "Active"; }
+            set { status = value; }
+        }  
     }
 }

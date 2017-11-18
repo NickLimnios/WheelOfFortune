@@ -11,9 +11,10 @@ using WheelOfFortune.Models;
 namespace WheelOfFortune.Migrations.WheelOfFortune
 {
     [DbContext(typeof(WheelOfFortuneContext))]
-    partial class WheelOfFortuneContextModelSnapshot : ModelSnapshot
+    [Migration("20171105122019_AdminCouponNew")]
+    partial class AdminCouponNew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -36,22 +37,6 @@ namespace WheelOfFortune.Migrations.WheelOfFortune
                     b.HasKey("ID");
 
                     b.ToTable("AdminCoupon");
-                });
-
-            modelBuilder.Entity("WheelOfFortune.Models.Wheels.Wheel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AllWheelSlices");
-
-                    b.Property<bool>("IsWheelActive");
-
-                    b.Property<string>("WheelDescription");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AdminWheels");
                 });
 #pragma warning restore 612, 618
         }

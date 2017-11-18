@@ -1,20 +1,21 @@
 ﻿@model WheelOfFortune.Models.AdminCoupon
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Revoke Coupon";
 }
 
-<h2>Edit</h2>
+<h2>Revoke</h2>
 
 <h4>AdminCoupon</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="Edit" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="ID" />
             <div class="form-group">
-                <input type="submit" value="Save" class="btn btn-default" />
+                <label asp-for ="User" class="control-label">Are you sure you want to revoke the coupon?</label>
+                <input type="submit" value="Revoke" class="btn btn-default" />
             </div>
         </form>
     </div>
