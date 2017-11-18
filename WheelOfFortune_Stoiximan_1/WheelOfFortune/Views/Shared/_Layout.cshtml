@@ -43,17 +43,20 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAuthenticatedUser")).Succeeded){
-                        <li><a asp-area="" asp-controller="Transaction" asp-action="TransactionList">Transactions</a></li> }
-                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireUser")).Succeeded){
-                        <li><a asp-area="" asp-controller="Coupon" asp-action="CouponList">Coupons</a></li>}
-                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequiredAdministrator")).Succeeded)                    {
-                        <li><a asp-area="" asp-controller="AdminCoupons" asp-action="Index">Admin Coupon</a></li>}
-                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAuthenticatedUser")).Succeeded){
-                        <li><a asp-area="" asp-controller="SpinTheWheel" asp-action="PlayWheelOfFortune">Spin The Wheel</a></li>}
-                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequiredAdministrator")).Succeeded) {
-                        <li><a asp-area="" asp-controller="AdminCoupons" asp-action="Index">Admin Coupons</a></li>}
-                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequiredAdministrator")).Succeeded){
-                        <li><a asp-area="" asp-controller="AdminWheels" asp-action="Index">Admin Wheels</a></li>}
+                        @if ((await AuthorizationService.AuthorizeAsync(User, "RequireUser")).Succeeded)
+                        {
+                            <li><a asp-area="" asp-controller="Coupon" asp-action="CouponList">Coupons</a></li>
+                            <li><a asp-area="" asp-controller="SpinTheWheel" asp-action="PlayWheelOfFortune">Spin The Wheel</a></li>
+                            <li><a asp-area="" asp-controller="Transaction" asp-action="TransactionList">Transactions</a></li>
+                        }
+                        @if ((await AuthorizationService.AuthorizeAsync(User, "RequiredAdministrator")).Succeeded)
+                        {
+                            <li><a asp-area="" asp-controller="AdminCoupons" asp-action="Index">Admin Coupon</a></li>
+                            <li><a asp-area="" asp-controller="AdminWheels" asp-action="Index">Admin Wheels</a></li>
+                        }
+                    }
+                    
+                                        
                     
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
