@@ -32,14 +32,15 @@ namespace WheelOfFortune
 
             // Add application services.
             services.AddTransient<IEmailSender, EmailSender>();
-            services.AddTransient<ICouponsRepository,EFCouponRepository>();
+            services.AddTransient<ICouponsRepository, EFCouponRepository>();
             services.AddTransient<ITransactionRepository, EFTransactionRepository>();
 
             services.AddMvc();
 
             // Add Authorization
-            services.AddAuthorization(options => {options.AddPolicy("RequireAuthenticatedUser", policy => policy.RequireAuthenticatedUser());});
-            services.AddAuthorization(options => {options.AddPolicy("RequiredAdministrator", policy => policy.RequireRole("Admin")); });
+            services.AddAuthorization(options => { options.AddPolicy("RequireAuthenticatedUser", policy => policy.RequireAuthenticatedUser()); });
+            services.AddAuthorization(options => { options.AddPolicy("RequiredAdministrator", policy => policy.RequireRole("Admin")); });
+            services.AddAuthorization(options => { options.AddPolicy("RequireUser", policy => policy.RequireRole("User")); });
 
             services.AddDbContext<WheelOfFortuneContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("WheelOfFortuneContext")));
@@ -71,7 +72,7 @@ namespace WheelOfFortune
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Home}/{action=Index}/{id?}");
+                    template: "{controller=Account}/{action=Login}/{id?}");
 
                   routes.MapRoute(
                       name: "Coupon",

@@ -4,7 +4,6 @@
 using System.Web;
 using System.Collections.Generic;
 using System.Linq;
-
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authentication;
@@ -20,6 +19,7 @@ using Microsoft.AspNetCore.Http;
 using StackExchange.Redis;
 using Microsoft.AspNetCore.Server.Kestrel.Internal.System;
 using WheelOfFortune.Data;
+using WheelOfFortune.Helpers;
 
 namespace WheelOfFortune.Controllers
 {
@@ -32,6 +32,7 @@ namespace WheelOfFortune.Controllers
         private readonly SignInManager<ApplicationUser> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ILogger _logger;
+        private readonly ImageRequest _validater = new ImageRequest();
 
         public AccountController(
             ApplicationDbContext applicationDbContext,
@@ -240,15 +241,40 @@ namespace WheelOfFortune.Controllers
         public async Task<IActionResult> Register(RegisterViewModel model,IFormFile Image, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
+
+                    
+            
             if (ModelState.IsValid)
             {
-                      
+                int count;
+                using (Stream imageStream = Image.OpenReadStream())
+                {
+                    
+
+                    count = await _validater.DetectTheFaces(imageStream);
+                }
+                if (count <= 0)
+                {
+                    ModelState.AddModelError("Image", "Image does not contain a face");
+                    return View(model);
+                }
+
+                if (count > 1)
+                {
+                    ModelState.AddModelError("Image", "The image must contain only one face");
+                    return View(model);
+                }
+
+
                 var user = new ApplicationUser { UserName = model.UserName, Email = model.Email };
 
                 using (var memoryStream = new MemoryStream())
                 {
                     await model.Image.CopyToAsync(memoryStream);
+                    
                     user.Image = memoryStream.ToArray();
+
+                    
                 }
 
                 //TODO : SAVE USER / USERROLE / INITIAL TRANSACTION in the same transaction
@@ -287,7 +313,7 @@ namespace WheelOfFortune.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(AccountController.Login), "Account");
         }
 
         //
@@ -383,7 +409,7 @@ namespace WheelOfFortune.Controllers
         {
             if (userId == null || code == null)
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(AccountController.Login), "Account");
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -515,7 +541,7 @@ namespace WheelOfFortune.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(ManageController.Index), "Manage");
             }
         }
 
