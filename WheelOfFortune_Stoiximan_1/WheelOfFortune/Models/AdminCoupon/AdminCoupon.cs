@@ -18,8 +18,8 @@ namespace WheelOfFortune.Models
         //    return View();
         //}
         public int ID { get; set; }
-        private static string Code1;
-        public static string Code
+        private string Code1;
+        public string Code
         {
             get { return Code1 ?? Guid.NewGuid().ToString("N").Substring(0, 6); }
 
