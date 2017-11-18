@@ -50,7 +50,7 @@
         $.ajax({
             url: '@Url.Action("CreateWheel", "AdminWheels")',
             type: 'POST',
-            data: $("#slices").serialize(),
+            data: $("#slices > tbody").serialize(),
         }).success(function (partialView) {
         });
             });
