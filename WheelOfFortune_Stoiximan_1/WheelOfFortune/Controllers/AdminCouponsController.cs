@@ -147,6 +147,35 @@ namespace WheelOfFortune.Controllers
         {
             return _context.AdminCoupon.Any(e => e.ID == id);
         }
+
+        // GET: AdminCoupons/Redeem/5
+        public async Task<IActionResult> Redeem(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var adminCoupon = await _context.AdminCoupon
+                .SingleOrDefaultAsync(m => m.ID == id);
+            if (adminCoupon == null)
+            {
+                return NotFound();
+            }
+
+            return View(adminCoupon);
+        }
+        // POST: AdminCoupons/Redeem/5
+        [HttpPost, ActionName("Redeem")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> RedeemConfirmed(int id)
+        {
+            var adminCoupon = await _context.AdminCoupon.SingleOrDefaultAsync(m => m.ID == id);
+            adminCoupon.Status = "Distributed";
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 
 
