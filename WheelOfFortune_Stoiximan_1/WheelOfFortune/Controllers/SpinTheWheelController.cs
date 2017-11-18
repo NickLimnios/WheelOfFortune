@@ -179,7 +179,7 @@ namespace WheelOfFortune.Controllers
                 Comment = "Wheel Spin",
                 TransactionDate = DateTime.Now
             });
-            _applicationDbContext.SaveChangesAsync();
+            _applicationDbContext.SaveChanges();
         }
         #endregion
     }
