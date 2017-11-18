@@ -45,7 +45,6 @@
                     @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAuthenticatedUser")).Succeeded){
                         @if ((await AuthorizationService.AuthorizeAsync(User, "RequireUser")).Succeeded)
                         {
-                            <li><a asp-area="" asp-controller="Coupon" asp-action="CouponList">Coupons</a></li>
                             <li><a asp-area="" asp-controller="SpinTheWheel" asp-action="PlayWheelOfFortune">Spin The Wheel</a></li>
                             <li><a asp-area="" asp-controller="Transaction" asp-action="TransactionList">Transactions</a></li>
                         }

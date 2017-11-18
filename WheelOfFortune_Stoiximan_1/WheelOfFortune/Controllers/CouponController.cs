@@ -19,5 +19,9 @@ namespace WheelOfFortune.Controllers
 
         [Authorize]
         public ViewResult CouponList() => View(repository.Coupons);
+        //public ActionResult GetCoupon()
+        //{
+        //    return RedirectToAction("GetCoupon", "AdminCoupons");
+        //}
     }
 }
