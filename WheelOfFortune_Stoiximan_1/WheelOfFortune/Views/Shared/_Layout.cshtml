@@ -38,16 +38,18 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">WheelOfFortune</a>
+                <a style="margin-left:-10px; font-weight:600; font-family:Verdana; font-size:large; transform: scaleY(1.4);" asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Wheel Of Fortune</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAuthenticatedUser")).Succeeded){
                         @if ((await AuthorizationService.AuthorizeAsync(User, "RequireUser")).Succeeded)
                         {
-                            <li><a asp-area="" asp-controller="Coupon" asp-action="CouponList">Coupons</a></li>
-                            <li><a asp-area="" asp-controller="SpinTheWheel" asp-action="PlayWheelOfFortune">Spin The Wheel</a></li>
-                            <li><a asp-area="" asp-controller="Transaction" asp-action="TransactionList">Transactions</a></li>
+                            <li><a asp-area="" asp-controller="Coupon" asp-action="CouponList">My Coupons</a></li>
+                            <li><a asp-area="" asp-controller="Transaction" asp-action="TransactionList">My Transactions</a></li>
+                            <li><a style="font-family:'Arial Rounded MT'; 
+                                    font-size:28px; font-weight:900; color:red; margin-left:60px" asp-area=""
+                                    asp-controller="SpinTheWheel" asp-action="PlayWheelOfFortune">Play Now</a></li>
                         }
                         @if ((await AuthorizationService.AuthorizeAsync(User, "RequiredAdministrator")).Succeeded)
                         {

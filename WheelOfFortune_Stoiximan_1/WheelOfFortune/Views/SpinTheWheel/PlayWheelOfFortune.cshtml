@@ -30,9 +30,50 @@
 
 </head>
 <body>
-    <div class="row">
-        <div class="col-md-6">
-            <button class="spinBtn wof-button" id="js-spinWheel-Btn">CLICK TO SPIN!</button>
+    <script>
+
+        jQuery(document).ready(function () {
+            // This button will increment the value
+            $('.qtyplus').click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                fieldName = $(this).attr('field');
+                // Get its current value
+                var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+                // If is not undefined
+                if (!isNaN(currentVal)) {
+                    // Increment
+                    $('input[name=' + fieldName + ']').val(currentVal + 1);
+                } else {
+                    // Otherwise put a 0 there
+                    $('input[name=' + fieldName + ']').val(0);
+                }
+            });
+            // This button will decrement the value till 0
+            $(".qtyminus").click(function (e) {
+                // Stop acting like a button
+                e.preventDefault();
+                // Get the field name
+                fieldName = $(this).attr('field');
+                // Get its current value
+                var currentVal = parseInt($('input[name=' + fieldName + ']').val());
+                // If it isn't undefined or its greater than 0
+                if (!isNaN(currentVal) && currentVal > 0) {
+                    // Decrement one
+                    $('input[name=' + fieldName + ']').val(currentVal - 1);
+                } else {
+                    // Otherwise put a 0 there
+                    $('input[name=' + fieldName + ']').val(0);
+                }
+            });
+        });
+
+    </script>
+
+
+        <div class="col-sm-8" >
+            @*<button class="spinBtn wof-button" id="js-spinWheel-Btn">CLICK TO SPIN!</button>*@
             <div class="wheelContainer">
                 <svg class="wheelSVG" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" text-rendering="optimizeSpeed">
                     <defs>
@@ -65,36 +106,37 @@
         </div>
 
 
-        <div class="col-md-6">
+    <div class="col-sm-4" >
+            <br /><br /><br />
             <div class="row">
-                <div class="col-md-6">
-                    <button cols='5' rows='8' type="button" class="btn-responsive wof-button">Get a coupon code!</button>
-                </div>
-                <div class="col-sm-8 mtop5">
-                    <h1> <span class=" label label-primary "> SpaceHolder Label FIX THIS</span></h1>
-                    <h1> <span class=" user_balance label label-info ">Place the amount below<br />And Spin this</span></h1>
-                    <input id="js-userSpinAmountInput">
-                </div>
+                @*<h1> <span class=" user_balance label ">Place the amount</span></h1>*@
+                <h1> Place Your Bet Here</h1>
+                <input type="text" name="quantity" value="0" class="qty" id="js-userSpinAmountInput">
+                <br /><br />
+                <input type='button' value='-' class='qtyminus btn-danger' style="width:45px; " field='quantity' />
+                <input type='button' value='+' class='qtyplus btn-info' style="width:45px; " field='quantity' />
+                <br />
+                <br />
             </div>
-
+        
+            <div class="row">
+                <button class="spinBtn button btn-lg btn-danger" id="js-spinWheel-Btn">CLICK TO SPIN!</button>
+            </div>
+            <br />
+            <hr />
+            <br />
+            <br />
+            <br />
+            <div class="row couponBG" >
+                <h1 style="font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif">Out Of Money??</h1>
+                <h3>Click <a href="#"> HERE</a> To Order A New Coupon</h3>
+               
+                
+                
+            </div>
         </div>
-        <div class="col-sm-4">
-
-        </div>
-    </div>
-
-    @*<div class="row">
-            <button class="col-sm-4">CLICK TO SPIN!</button>
-            <button class="col-sm-4">CLICK TO SPIN!</button>
-
-            <button class="col-sm-4">CLICK TO SPIN!</button>
-        </div>*@
-
-    @*<div class="form-group">
-            <label asp-for="Email"></label>
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>*@
+        
+    
 
 </body>
 
