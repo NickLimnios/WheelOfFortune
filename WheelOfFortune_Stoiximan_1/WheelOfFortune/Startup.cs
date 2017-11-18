@@ -74,9 +74,9 @@ namespace WheelOfFortune
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
 
-                  routes.MapRoute(
-                      name: "Coupon",
-                      template: "{controller=Coupon}/{action=CouponList}/{id?}");
+                routes.MapRoute(
+                    name: "Coupon",
+                    template: "{controller=Coupon}/{action=CouponList}/{id?}");
 
                 routes.MapRoute(
                       name: "Transaction",
@@ -87,8 +87,8 @@ namespace WheelOfFortune
                       template: "{controller=SpinTheWheel}/{action=PlayWheelOfFortune}/{id?}");
 
             });
-            
-        
+
+
         }
     }
 }
