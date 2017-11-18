@@ -19,7 +19,7 @@ function loadJSON(callback) {
 function myResult(e) {
     //e is the result object
     console.log('Spin Count: ' + e.spinCount + ' - ' + 'Win: ' + e.win + ' - ' + 'Message: ' + e.msg);
-
+    
 
     // if you have defined a userData object...
     if (e.userData) {
