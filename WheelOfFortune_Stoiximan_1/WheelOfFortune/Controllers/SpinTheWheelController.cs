@@ -76,7 +76,7 @@ namespace WheelOfFortune.Controllers
         public IActionResult UserSpinTheWheel(string _spinWheelHash, float _spinBetAmount)
         {
             //To avoid smartasses.May need more checks. Should we allow this or block the user if he places < 0?
-            float spinBetAmount = Math.Abs(_spinBetAmount);
+            float spinBetAmount = _spinBetAmount;
 
             //cause we got some null exceptions...
             if (_spinWheelHash is null) _spinWheelHash = "";
@@ -94,12 +94,12 @@ namespace WheelOfFortune.Controllers
             }
 
             //This will execute if the user CAN'T Spin...
-            if (!UserSufficentBalance(spinBetAmount))
+            if (spinBetAmount < 0 || !UserSufficentBalance(spinBetAmount))
             {
                 return Json(new
                 {
                     spinStatus = false,
-                    spinStatusMsg = "Not a valid spin. Bet placed amount, is greater than your balance.",
+                    spinStatusMsg = "Not a valid amount. Bet amount must be Greater than 0 and up to your balance.",
                     userPlacedAmount = spinBetAmount
                 });
             }
