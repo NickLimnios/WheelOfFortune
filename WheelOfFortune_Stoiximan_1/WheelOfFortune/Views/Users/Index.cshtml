@@ -1,0 +1,50 @@
+﻿@model IEnumerable<WheelOfFortune.Models.ApplicationUser>
+@{
+    ViewData["Title"] = "Users Info";
+}
+
+<h2>Index</h2>
+
+<table class="table">
+
+    <thead>
+        <tr>
+            <th>User ID</th>
+            <th>Username</th>
+            <th>E-Mail</th>
+            <th>Banned?</th>
+            <th>Phone Number</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+            <td>
+            @Html.DisplayFor(modelItem => item.Id)
+            </td >
+            <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+            </td >
+            <td>
+            @Html.DisplayFor(modelItem => item.Email)
+            </td >
+            <td>
+            @Html.DisplayFor(modelItem => item.UserBanned)
+            </td >
+            <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+            </td >
+            <td>
+            <a asp-action= "Enable" asp-route-id = "@item.Id" > Enable </a > |
+            <a asp-action= "Disable" asp-route-id = "@item.Id" > Disable </a >
+            </td >
+            </tr >
+        }
+
+    </tbody>
+
+</table>
+

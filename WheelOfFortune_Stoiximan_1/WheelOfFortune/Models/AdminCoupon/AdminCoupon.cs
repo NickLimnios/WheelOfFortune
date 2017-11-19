@@ -21,7 +21,8 @@ namespace WheelOfFortune.Models
         {
             get { return Code1 ?? Guid.NewGuid().ToString("N").Substring(0, 6); }
 
-            set { Code1 = value; } } //the code for the user to redeem it.
+            set { Code1 = value; }
+        } //the code for the user to redeem it.
 
         public int Value { get; set; } //value the user will receive after redeeming
 
@@ -29,8 +30,14 @@ namespace WheelOfFortune.Models
         public DateTime CreationDate
         {
             get { return creationDate ?? DateTime.Now; }
-            set {creationDate = value; }
+            set { creationDate = value; }
         }
-        public string Status { get; set; }  
+        private string status;
+
+        public string Status
+        {
+            get { return status ?? "Active"; }
+            set { status = value; }
+        }
     }
 }

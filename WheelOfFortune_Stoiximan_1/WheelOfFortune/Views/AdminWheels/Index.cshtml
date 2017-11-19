@@ -1,0 +1,44 @@
+﻿@model IEnumerable<WheelOfFortune.Models.Wheels.Wheel>
+
+@{
+    ViewData["Title"] = "Available Wheels";
+}
+<p>
+<h2> Administrator Created Wheels</h2>
+</p>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<div class="bg-info" style=" background-color:rgba(192,192,192,0.8);">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Wheel ID</th>
+                <th>Wheel Description</th>
+                <th>Is the wheel active?</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Id)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.WheelDescription)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsWheelActive)
+                    </td>
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.ID">Edit</a> |
+                            <a asp-action="Details" asp-route-id="@item.ID">Details</a> |
+                            <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>*@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+ </div>

@@ -38,18 +38,27 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            <a class="navbar-brand">WheelOfFortune</a>
+                <a style="margin-left:-10px; font-weight:600; font-family:Verdana; font-size:large; transform: scaleY(1.4);
+                    " asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">Wheel Of Fortune</a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireAuthenticatedUser")).Succeeded){
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireUser")).Succeeded){
                         <li><a asp-area="" asp-controller="Transaction" asp-action="TransactionList">Transactions</a></li> }
                     @if ((await AuthorizationService.AuthorizeAsync(User, "RequireUser")).Succeeded){
                         <li><a asp-area="" asp-controller="Coupon" asp-action="CouponList">Coupons</a></li>}
                     @if ((await AuthorizationService.AuthorizeAsync(User, "RequiredAdministrator")).Succeeded){
+                        <li><a asp-area="" asp-controller="AdminWheels" asp-action="Index">Admin Wheels</a></li>}
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequiredAdministrator")).Succeeded){
                         <li><a asp-area="" asp-controller="AdminCoupons" asp-action="Index">Admin Coupon</a></li>}
-                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequireUser")).Succeeded){
-                        <li><a asp-area="" asp-controller="SpinTheWheel" asp-action="PlayWheelOfFortune">Spin The Wheel</a></li>}
+                    @if ((await AuthorizationService.AuthorizeAsync(User, "RequiredAdministrator")).Succeeded){
+                        <li><a asp-area="" asp-controller="Users" asp-action="Index" > Manage Users </a></li>}
+                    @if((await AuthorizationService.AuthorizeAsync(User, "RequireUser")).Succeeded){
+                      <li><a style="font-family:'Arial Rounded MT'; 
+                                    font-size:28px; font-weight:900; color:red; margin-left:60px" asp-area=""
+                                    asp-controller="SpinTheWheel" asp-action="PlayWheelOfFortune">Play Now</a></li>
+                        }                
+                    
                 </ul>
                 @await Html.PartialAsync("_LoginPartial")
             </div>
@@ -57,10 +66,7 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2017 - WheelOfFortune</p>
-        </footer>
+        
     </div>
 
     <environment include="Development">
@@ -85,5 +91,6 @@
     </environment>
 
     @RenderSection("Scripts", required: false)
+    
 </body>
 </html>
