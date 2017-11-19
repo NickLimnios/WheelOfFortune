@@ -11,9 +11,10 @@ using WheelOfFortune.Models;
 namespace WheelOfFortune.Migrations.WheelOfFortune
 {
     [DbContext(typeof(WheelOfFortuneContext))]
-    partial class WheelOfFortuneContextModelSnapshot : ModelSnapshot
+    [Migration("20171105122019_AdminCouponNew")]
+    partial class AdminCouponNew
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
