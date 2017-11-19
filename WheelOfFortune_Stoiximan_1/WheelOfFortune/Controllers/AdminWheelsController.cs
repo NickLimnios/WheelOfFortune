@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
+using WheelOfFortune.Data;
 using WheelOfFortune.Models;
 using WheelOfFortune.Models.Wheels;
 
@@ -11,10 +12,10 @@ namespace WheelOfFortune.Controllers
 {
     public class AdminWheelsController : Controller
     {
-        private readonly WheelOfFortuneContext _context;
+        private readonly ApplicationDbContext _context;
         private static List<WheelSliceContainer> tempWheels;
 
-        public AdminWheelsController(WheelOfFortuneContext context)
+        public AdminWheelsController(ApplicationDbContext context)
         {
             _context = context;
             if (tempWheels == null)

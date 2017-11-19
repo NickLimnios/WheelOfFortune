@@ -42,8 +42,8 @@ namespace WheelOfFortune
             services.AddAuthorization(options => { options.AddPolicy("RequiredAdministrator", policy => policy.RequireRole("Admin")); });
             services.AddAuthorization(options => { options.AddPolicy("RequireUser", policy => policy.RequireRole("User")); });
 
-            services.AddDbContext<WheelOfFortuneContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("WheelOfFortuneContext")));
+            //services.AddDbContext<WheelOfFortuneContext>(options =>
+                   // options.UseSqlServer(Configuration.GetConnectionString("WheelOfFortuneContext")));
 
         }
 

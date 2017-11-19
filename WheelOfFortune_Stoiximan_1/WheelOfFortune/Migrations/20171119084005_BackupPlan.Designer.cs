@@ -11,8 +11,8 @@ using WheelOfFortune.Data;
 namespace WheelOfFortune.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20171118222648_UserBanned_fix")]
-    partial class UserBanned_fix
+    [Migration("20171119084005_BackupPlan")]
+    partial class BackupPlan
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -100,6 +100,24 @@ namespace WheelOfFortune.Migrations
                     b.HasKey("UserId", "LoginProvider", "Name");
 
                     b.ToTable("AspNetUserTokens");
+                });
+
+            modelBuilder.Entity("WheelOfFortune.Models.AdminCoupon", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Code");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Status");
+
+                    b.Property<int>("Value");
+
+                    b.HasKey("ID");
+
+                    b.ToTable("AdminCoupon");
                 });
 
             modelBuilder.Entity("WheelOfFortune.Models.ApplicationRole", b =>
@@ -226,6 +244,22 @@ namespace WheelOfFortune.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Transactions");
+                });
+
+            modelBuilder.Entity("WheelOfFortune.Models.Wheels.Wheel", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("AllWheelSlices");
+
+                    b.Property<bool>("IsWheelActive");
+
+                    b.Property<string>("WheelDescription");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AdminWheels");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

@@ -18,10 +18,10 @@ namespace WheelOfFortune.Controllers
         //TODO FIX THIS. I know i'm prolly doing something wrong but i don't what exactly.
         private ApplicationDbContext _applicationDbContext;
 
-        private readonly WheelOfFortuneContext _context;
+        private readonly ApplicationDbContext _context;
 
         // i am very sure this should not be happening but it's late... 2AM late
-        public AdminCouponsController(ApplicationDbContext applicationDbContext, WheelOfFortuneContext context)
+        public AdminCouponsController(ApplicationDbContext applicationDbContext, ApplicationDbContext context)
         {
             _applicationDbContext = applicationDbContext;
             _context = context;
