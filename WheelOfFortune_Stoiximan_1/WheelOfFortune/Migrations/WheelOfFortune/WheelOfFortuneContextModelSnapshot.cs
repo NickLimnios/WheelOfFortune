@@ -31,7 +31,7 @@ namespace WheelOfFortune.Migrations.WheelOfFortune
 
                     b.Property<string>("Status");
 
-                    b.Property<int?>("Value");
+                    b.Property<int>("Value");
 
                     b.HasKey("ID");
 
