@@ -15,7 +15,6 @@ function getBalance() {
         document.getElementById('userBalance').innerText = "My Balance is: " + data.balance;
 
     }).fail(function () {
-        alert('fail');
     });
 }
 

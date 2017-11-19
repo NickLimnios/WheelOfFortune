@@ -158,10 +158,10 @@ namespace WheelOfFortune.Controllers
         //    return RedirectToAction(nameof(Index));
         //}
 
-        //private bool AdminCouponExists(int id)
-        //{
-        //    return _context.AdminCoupon.Any(e => e.ID == id);
-        //}
+        private bool AdminCouponExists(int id)
+        {
+            return _context.AdminCoupon.Any(e => e.ID == id);
+        }
 
         // GET: AdminCoupons/Redeem/5
         public async Task<IActionResult> Redeem(int? id)
