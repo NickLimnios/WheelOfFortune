@@ -24,8 +24,6 @@ namespace WheelOfFortune.Models.Wheels
         //All the slices of the wheel with their attributes stored as a string in the DB.
         public string AllWheelSlices { get; set; }
 
-        public string WheelDescription{ get; set; }
-
 
         //This will provide the json to feed it to JS client
         public JsonResult GenerateWheelJson()

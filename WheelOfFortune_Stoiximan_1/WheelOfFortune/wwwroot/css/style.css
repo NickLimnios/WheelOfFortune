@@ -8,13 +8,6 @@
  padding: 0;
 
 }
-
-.couponBG {
-    background-image: url("../images/images.png");
-    max-width: 355px;
-    max-height: 142px;
-    transform: rotate(-7deg);
-}
 .centerCircle, .valueContainer, .wheelOutline, .wheelText {
  pointer-events: none;
 }
@@ -22,7 +15,7 @@
  text-align: center;
 }
 .wheelContainer, .wof-button {
-    transform: translate(-50%, -10%);
+    transform: translate(-50%, 0);
 }
 .toast, .wof-button {
     position: absolute;
@@ -41,8 +34,8 @@ body, html {
  max-width: 1000px;
  margin-left: auto;
  margin-right: auto;
- left: 30%;
- top: 70px;
+ left: 50%;
+ top: 160px;
 }
 .wheelSVG {
  position: absolute;

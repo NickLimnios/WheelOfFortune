@@ -37,25 +37,16 @@ namespace WheelOfFortune.Helpers
         public static string AppendWheelSlices_ToString(List<WheelSliceContainer> slicesToConvert)
         {
             //tried this with linq but failled...
-            //would move the string in StaRes file.
             string allSlicesToString = "\"segmentValuesArray\" : [";
             for (int i = 0; i < slicesToConvert.Count; i++)
             {
                 //concat and add a "," if not the last element.
-                allSlicesToString += JsonConvert.SerializeObject(slicesToConvert[i]) + (i < slicesToConvert.Count - 1 ? "," : "");
+                allSlicesToString += JsonConvert.SerializeObject(slicesToConvert[i]) + (i < slicesToConvert.Count - 1 ? "," : "" );
             }
 
             allSlicesToString += "]";
             return allSlicesToString;
 
-        }
-
-        public static List<WheelSliceContainer> GetWheelSlicesFromString(string allSlices)
-        {
-            //would move the string in StaRes file.
-            return new List<WheelSliceContainer>
-                (JsonConvert.DeserializeObject<List<WheelSliceContainer>>(allSlices.Replace("\"segmentValuesArray\" :", "")));
-            
         }
     }
 }

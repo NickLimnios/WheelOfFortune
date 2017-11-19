@@ -101,24 +101,6 @@ namespace WheelOfFortune.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("WheelOfFortune.Models.AdminCoupon", b =>
-                {
-                    b.Property<int>("ID")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("Code");
-
-                    b.Property<DateTime>("CreationDate");
-
-                    b.Property<string>("Status");
-
-                    b.Property<int>("Value");
-
-                    b.HasKey("ID");
-
-                    b.ToTable("AdminCoupon");
-                });
-
             modelBuilder.Entity("WheelOfFortune.Models.ApplicationRole", b =>
                 {
                     b.Property<int>("Id")
@@ -185,8 +167,6 @@ namespace WheelOfFortune.Migrations
 
                     b.Property<bool>("TwoFactorEnabled");
 
-                    b.Property<bool>("UserBanned");
-
                     b.Property<string>("UserName")
                         .HasMaxLength(256);
 
@@ -243,22 +223,6 @@ namespace WheelOfFortune.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("Transactions");
-                });
-
-            modelBuilder.Entity("WheelOfFortune.Models.Wheels.Wheel", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd();
-
-                    b.Property<string>("AllWheelSlices");
-
-                    b.Property<bool>("IsWheelActive");
-
-                    b.Property<string>("WheelDescription");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AdminWheels");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

@@ -76,7 +76,7 @@ namespace WheelOfFortune.Controllers
         public IActionResult UserSpinTheWheel(string _spinWheelHash, float _spinBetAmount)
         {
             //To avoid smartasses.May need more checks. Should we allow this or block the user if he places < 0?
-            float spinBetAmount = _spinBetAmount;
+            float spinBetAmount = Math.Abs(_spinBetAmount);
 
             //cause we got some null exceptions...
             if (_spinWheelHash is null) _spinWheelHash = "";
@@ -94,12 +94,12 @@ namespace WheelOfFortune.Controllers
             }
 
             //This will execute if the user CAN'T Spin...
-            if (spinBetAmount < 0 || !UserSufficentBalance(spinBetAmount))
+            if (!UserSufficentBalance(spinBetAmount))
             {
                 return Json(new
                 {
                     spinStatus = false,
-                    spinStatusMsg = "Not a valid amount. Bet amount must be Greater than 0 and up to your balance.",
+                    spinStatusMsg = "Not a valid spin. Bet placed amount, is greater than your balance.",
                     userPlacedAmount = spinBetAmount
                 });
             }
@@ -149,10 +149,9 @@ namespace WheelOfFortune.Controllers
         #region Resolve spin action
         private int GetNextRestingWheelSlice()
         {
-
-            //Converts slices in a string to a json then deserializes and then based on the probability of each it retruns an int.
-            return RndGen.probabilityBasedRnd(WheelJsonHelper.GetWheelSlicesFromString(tempWheel.AllWheelSlices)
-                .Select<WheelSliceContainer, string>(x => x.probability.ToString()).ToArray());
+            List<WheelSliceContainer> tempSlices = new List<WheelSliceContainer>();
+            tempSlices.AddRange(JsonConvert.DeserializeObject<List<WheelSliceContainer>>(tempWheel.AllWheelSlices.Replace("\"segmentValuesArray\" :", "")));
+            return RndGen.probabilityBasedRnd(tempSlices.Select<WheelSliceContainer, string>(x => x.probability.ToString()).ToArray());
         }
 
         private float ServerSpinAmountResult(int restingSlice, float bet)
@@ -164,8 +163,10 @@ namespace WheelOfFortune.Controllers
         //This should return the percentage to multiply with the bet. It could be negative multiplier.
         private float ResolveRestingSliceValue(int _restingSlice)
         {
-            //Get the user value to multiply it with the bet.
-            return WheelJsonHelper.GetWheelSlicesFromString(tempWheel.AllWheelSlices)[_restingSlice].userData.SliceMultiplier;
+            //TODO Refactor. This is a bit dirty?
+            List<WheelSliceContainer> tempSlices = new List<WheelSliceContainer>();
+            tempSlices.AddRange(JsonConvert.DeserializeObject<List<WheelSliceContainer>>(tempWheel.AllWheelSlices.Replace("\"segmentValuesArray\" :", "")));
+            return tempSlices[_restingSlice].userData.SliceMultiplier;
 
         }
 
@@ -179,7 +180,7 @@ namespace WheelOfFortune.Controllers
                 Comment = "Wheel Spin",
                 TransactionDate = DateTime.Now
             });
-            _applicationDbContext.SaveChanges();
+            _applicationDbContext.SaveChangesAsync();
         }
         #endregion
     }
