@@ -10,6 +10,7 @@
     <a asp-action="GetCoupon">Get your Coupon here!</a>
 </p>
 }
+
 <h2>Transaction List</h2>
 
 <table class="table">
@@ -21,9 +22,7 @@
                 <th>
                     @Html.DisplayNameFor(model => model.UserId)
                 </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.CouponId)
-                </th>
+
                 <th>
                     @Html.DisplayNameFor(model => model.TransactionDate)
                 </th>
@@ -37,7 +36,8 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
+
+@foreach (var item in Model.OrderByDescending(c => c.Id).ToList()) {
         <tr>
             <td>
                 @Html.DisplayFor(modelItem => item.Id)
@@ -45,9 +45,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.UserId)
             </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CouponId)
-            </td>
+
             <td>
                 @Html.DisplayFor(modelItem => item.TransactionDate)
             </td>

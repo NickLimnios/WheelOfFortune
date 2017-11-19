@@ -8,16 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using WheelOfFortune.Models;
 using System.Text;
 using System.ComponentModel;
+using WheelOfFortune.Data;
+using Microsoft.AspNetCore.Identity;
+using System.Security.Claims;
 
 namespace WheelOfFortune.Controllers
 {
     public class AdminCouponsController : Controller
     {
         private readonly WheelOfFortuneContext _context;
+        private ApplicationDbContext _applicationDbContext;
 
-        public AdminCouponsController(WheelOfFortuneContext context)
+
+        public AdminCouponsController(WheelOfFortuneContext context, ApplicationDbContext applicationDbContext)
         {
             _context = context;
+            _applicationDbContext = applicationDbContext;
         }
 
         // GET: AdminCoupons
@@ -181,8 +187,14 @@ namespace WheelOfFortune.Controllers
             var adminCoupon = await _context.AdminCoupon.SingleOrDefaultAsync(m => m.ID == id);
             adminCoupon.Status = "Distributed";
             await _context.SaveChangesAsync();
-            ViewBag.Message = "Congratulations!!Your Code is: " + adminCoupon.Code;
-            return View();
+
+            //Add Initial Balance after Registration
+            _applicationDbContext.GetDBSet<Transaction>().Add(new Transaction { UserId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value), Amount = Convert.ToSingle(adminCoupon.Value), Comment = "Coupon: "+adminCoupon.Code,  TransactionDate = DateTime.Now });
+            await _applicationDbContext.SaveChangesAsync();
+
+            //ViewBag.Message = "Congratulations!!Your Code is: " + adminCoupon.Code;
+            //return View();
+            return RedirectToAction("TransactionList", "Transaction");
 
         }
     }
