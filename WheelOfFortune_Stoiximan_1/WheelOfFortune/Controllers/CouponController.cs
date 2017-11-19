@@ -17,7 +17,17 @@ namespace WheelOfFortune.Controllers
             repository = repo;
         }
 
+        [Authorize(Roles = "User")]
+        public ActionResult GetCoupon()
+        {
+            return RedirectToAction("GetCoupon", "AdminCoupons");
+        }
+
         [Authorize]
         public ViewResult CouponList() => View(repository.Coupons);
+        //public ActionResult GetCoupon()
+        //{
+        //    return RedirectToAction("GetCoupon", "AdminCoupons");
+        //}
     }
 }

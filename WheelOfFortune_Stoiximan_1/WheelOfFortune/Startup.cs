@@ -41,9 +41,7 @@ namespace WheelOfFortune
             services.AddAuthorization(options => { options.AddPolicy("RequireAuthenticatedUser", policy => policy.RequireAuthenticatedUser()); });
             services.AddAuthorization(options => { options.AddPolicy("RequiredAdministrator", policy => policy.RequireRole("Admin")); });
             services.AddAuthorization(options => { options.AddPolicy("RequireUser", policy => policy.RequireRole("User")); });
-
-            services.AddDbContext<WheelOfFortuneContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("WheelOfFortuneContext")));
+            
 
         }
 
@@ -72,11 +70,11 @@ namespace WheelOfFortune
             {
                 routes.MapRoute(
                     name: "default",
-                    template: "{controller=Account}/{action=Login}/{id?}");
+                    template: "{controller=Home}/{action=Index}/{id?}");
 
-                  routes.MapRoute(
-                      name: "Coupon",
-                      template: "{controller=Coupon}/{action=CouponList}/{id?}");
+                routes.MapRoute(
+                    name: "Coupon",
+                    template: "{controller=Coupon}/{action=CouponList}/{id?}");
 
                 routes.MapRoute(
                       name: "Transaction",
@@ -87,8 +85,8 @@ namespace WheelOfFortune
                       template: "{controller=SpinTheWheel}/{action=PlayWheelOfFortune}/{id?}");
 
             });
-            
-        
+
+
         }
     }
 }

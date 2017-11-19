@@ -15,7 +15,6 @@ function getBalance() {
         document.getElementById('userBalance').innerText = "My Balance is: " + data.balance;
 
     }).fail(function () {
-        alert('fail');
     });
 }
 
@@ -31,6 +30,15 @@ function getServerWheelHash() {
     }).fail(function () {
         alert('Failed to retrieve wheel Hash.');
     });
+}
+
+function createSlice() {
+            $.ajax({
+                url: '@Url.Action("AddSlice", "AdminWheels")',
+                type: 'GET'
+            }).success(function (partialView) {
+                $('#slices').append(partialView);
+            });
 }
 
 //Listener when the user presses the spin Btn in STW tab

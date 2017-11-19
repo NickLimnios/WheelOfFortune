@@ -1,21 +1,21 @@
 ﻿@model IEnumerable<Transaction>
 
 @{
-    ViewData["Title"] = "TransactionList";
+    ViewData["Title"] = "My Transactions";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Transaction List</h2>
-
-<table class="table">
-    <thead>
-        <tr>
-                <th>
-                    @Html.DisplayNameFor(model => model.Id)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.UserId)
-                </th>
+<h2 style="text-align:center">My Transactions</h2>
+<div class="bg-info" style=" background-color:rgba(192,192,192,0.8);">
+    <table class="table">
+        <thead>
+            <tr>
+                @*<th>
+                        @Html.DisplayNameFor(model => model.Id)
+                    </th>
+                    <th>
+                        @Html.DisplayNameFor(model => model.UserId)
+                    </th>*@
                 <th>
                     @Html.DisplayNameFor(model => model.CouponId)
                 </th>
@@ -28,31 +28,33 @@
                 <th>
                     @Html.DisplayNameFor(model => model.Amount)
                 </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Id)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.UserId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CouponId)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TransactionDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Comment)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Amount) €
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    @*<td>
+                            @Html.DisplayFor(modelItem => item.Id)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.UserId)
+                        </td>*@
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CouponId)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TransactionDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Comment)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Amount) €
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
