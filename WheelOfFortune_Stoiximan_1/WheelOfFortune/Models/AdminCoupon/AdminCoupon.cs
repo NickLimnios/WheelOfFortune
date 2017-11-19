@@ -24,7 +24,7 @@ namespace WheelOfFortune.Models
             set { Code1 = value; }
         } //the code for the user to redeem it.
 
-        public int? Value { get; set; } //value the user will receive after redeeming
+        public int Value { get; set; } //value the user will receive after redeeming
 
         private DateTime? creationDate;
         public DateTime CreationDate
@@ -33,10 +33,11 @@ namespace WheelOfFortune.Models
             set { creationDate = value; }
         }
         private string status;
+
         public string Status
         {
             get { return status ?? "Active"; }
-            set { Status = value; }
+            set { status = value; }
         }
     }
 }

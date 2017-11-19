@@ -8,15 +8,22 @@ using Microsoft.EntityFrameworkCore;
 using WheelOfFortune.Models;
 using System.Text;
 using System.ComponentModel;
+using WheelOfFortune.Data;
+using System.Security.Claims;
 
 namespace WheelOfFortune.Controllers
 {
     public class AdminCouponsController : Controller
     {
+        //TODO FIX THIS. I know i'm prolly doing something wrong but i don't what exactly.
+        private ApplicationDbContext _applicationDbContext;
+
         private readonly WheelOfFortuneContext _context;
 
-        public AdminCouponsController(WheelOfFortuneContext context)
+        // i am very sure this should not be happening but it's late... 2AM late
+        public AdminCouponsController(ApplicationDbContext applicationDbContext, WheelOfFortuneContext context)
         {
+            _applicationDbContext = applicationDbContext;
             _context = context;
         }
 
@@ -122,39 +129,39 @@ namespace WheelOfFortune.Controllers
             return View(adminCoupon);
         }
 
-        // GET: AdminCoupons/Delete/5
-        public async Task<IActionResult> Delete(int? id)
-        {
-            if (id == null)
-            {
-                return NotFound();
-            }
+        //// GET: AdminCoupons/Delete/5
+        //public async Task<IActionResult> Delete(int? id)
+        //{
+        //    if (id == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            var adminCoupon = await _context.AdminCoupon
-                .SingleOrDefaultAsync(m => m.ID == id);
-            if (adminCoupon == null)
-            {
-                return NotFound();
-            }
+        //    var adminCoupon = await _context.AdminCoupon
+        //        .SingleOrDefaultAsync(m => m.ID == id);
+        //    if (adminCoupon == null)
+        //    {
+        //        return NotFound();
+        //    }
 
-            return View(adminCoupon);
-        }
+        //    return View(adminCoupon);
+        //}
 
-        // POST: AdminCoupons/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
-        {
-            var adminCoupon = await _context.AdminCoupon.SingleOrDefaultAsync(m => m.ID == id);
-            _context.AdminCoupon.Remove(adminCoupon);
-            await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Index));
-        }
+        //// POST: AdminCoupons/Delete/5
+        //[HttpPost, ActionName("Delete")]
+        //[ValidateAntiForgeryToken]
+        //public async Task<IActionResult> DeleteConfirmed(int id)
+        //{
+        //    var adminCoupon = await _context.AdminCoupon.SingleOrDefaultAsync(m => m.ID == id);
+        //    _context.AdminCoupon.Remove(adminCoupon);
+        //    await _context.SaveChangesAsync();
+        //    return RedirectToAction(nameof(Index));
+        //}
 
-        private bool AdminCouponExists(int id)
-        {
-            return _context.AdminCoupon.Any(e => e.ID == id);
-        }
+        //private bool AdminCouponExists(int id)
+        //{
+        //    return _context.AdminCoupon.Any(e => e.ID == id);
+        //}
 
         // GET: AdminCoupons/Redeem/5
         public async Task<IActionResult> Redeem(int? id)
@@ -179,9 +186,20 @@ namespace WheelOfFortune.Controllers
         public async Task<IActionResult> RedeemConfirmed(int id)
         {
             var adminCoupon = await _context.AdminCoupon.SingleOrDefaultAsync(m => m.ID == id);
+
             adminCoupon.Status = "Distributed";
+            _applicationDbContext.GetDBSet<Transaction>().Add(new Transaction
+            {
+                UserId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value),
+                Amount = adminCoupon.Value,
+                Comment = "Coupon code reddemed: " + adminCoupon.Code,
+                TransactionDate = DateTime.Now
+            });
+            _applicationDbContext.SaveChanges();
+
             await _context.SaveChangesAsync();
             ViewBag.Message = "Congratulations!!Your Code is: " + adminCoupon.Code;
+
             return View();
 
         }
