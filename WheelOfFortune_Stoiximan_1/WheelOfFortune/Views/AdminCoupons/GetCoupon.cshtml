@@ -1,12 +1,10 @@
 ﻿@model IEnumerable<WheelOfFortune.Models.AdminCoupon>
 
 @{
-    ViewData["Title"] = "Redeem";
+    ViewData["Title"] = "Get Coupon";
 }
 
-<h2>Redeem</h2>
-
-
+<h2>Please choose of the available amounts below:</h2>
 
 
 @foreach (var item in Model)
@@ -15,7 +13,7 @@
     {
         <form asp-action="Redeem">
 
-            @Html.DisplayFor(modelItem => item.Value)
+            @Html.DisplayFor(modelItem => item.Value) €      
             <a asp-action="Redeem" asp-route-id="@item.ID">Redeem</a>
 
         </form>
