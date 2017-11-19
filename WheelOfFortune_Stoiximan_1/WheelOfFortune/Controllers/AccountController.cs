@@ -77,50 +77,31 @@ namespace WheelOfFortune.Controllers
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
                 var result = await _signInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, lockoutOnFailure: false);
-
                 if (result.Succeeded)
                 {
-                    var user = _applicationDbContext.Users.Where(x => x.UserName == model.Username).First();
-                    if (user.UserBanned == true)
-                    {
-                        _logger.LogWarning(2, "User account locked out.");
-                        await _signInManager.SignOutAsync();
-                        return RedirectToAction(nameof(Lockout));
-                    }
-                    else
-                    {
-                        _logger.LogInformation(1, "User logged in.");
-                        return RedirectToLocal(returnUrl);
-                    }
+                    _logger.LogInformation(1, "User logged in.");
+                    return RedirectToLocal(returnUrl);
                 }
-
                 if (result.RequiresTwoFactor)
                 {
-                    if (result.Succeeded)
-                    {
-                        _logger.LogInformation(1, "User logged in.");
-                        return RedirectToLocal(returnUrl);
-                    }
-                    if (result.RequiresTwoFactor)
-                    {
-                        return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
-                    }
-                    if (result.IsLockedOut)
-                    {
-                        _logger.LogWarning(2, "User account locked out.");
-                        return RedirectToAction(nameof(Lockout));
-                    }
-                    else
-                    {
-                        ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                        return View(model);
-                    }
+                    return RedirectToAction(nameof(LoginWith2fa), new { returnUrl, model.RememberMe });
                 }
-
-                // If we got this far, something failed, redisplay form
+                if (result.IsLockedOut)
+                {
+                    _logger.LogWarning(2, "User account locked out.");
+                    return RedirectToAction(nameof(Lockout));
+                }
+                else
+                {
+                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    return View(model);
+                }
             }
+
+            // If we got this far, something failed, redisplay form
             return View(model);
         }
+
         //
         // GET: /Account/SendCode
         [HttpGet]
@@ -257,18 +238,18 @@ namespace WheelOfFortune.Controllers
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Register(RegisterViewModel model, IFormFile Image, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model,IFormFile Image, string returnUrl = null)
         {
             ViewData["ReturnUrl"] = returnUrl;
 
-
-
+                    
+            
             if (ModelState.IsValid)
             {
                 int count;
                 using (Stream imageStream = Image.OpenReadStream())
                 {
-
+                    
 
                     count = await _validater.DetectTheFaces(imageStream);
                 }
@@ -290,10 +271,10 @@ namespace WheelOfFortune.Controllers
                 using (var memoryStream = new MemoryStream())
                 {
                     await model.Image.CopyToAsync(memoryStream);
-
+                    
                     user.Image = memoryStream.ToArray();
 
-
+                    
                 }
 
                 //TODO : SAVE USER / USERROLE / INITIAL TRANSACTION in the same transaction
@@ -332,7 +313,7 @@ namespace WheelOfFortune.Controllers
         {
             await _signInManager.SignOutAsync();
             _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            return RedirectToAction(nameof(AccountController.Login), "Account");
         }
 
         //
@@ -428,7 +409,7 @@ namespace WheelOfFortune.Controllers
         {
             if (userId == null || code == null)
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(AccountController.Login), "Account");
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
@@ -560,7 +541,7 @@ namespace WheelOfFortune.Controllers
             }
             else
             {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
+                return RedirectToAction(nameof(ManageController.Index), "Manage");
             }
         }
 
