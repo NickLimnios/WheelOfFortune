@@ -1,6 +1,9 @@
 ﻿body {
     padding-top: 50px;
     padding-bottom: 20px;
+    background-image: url("../images/body_background.jpg");
+    background-repeat: no-repeat;
+    background-size: cover
 }
 
 /* Wrapping element */
