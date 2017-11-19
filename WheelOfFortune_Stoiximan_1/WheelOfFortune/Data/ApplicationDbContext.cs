@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using WheelOfFortune.Models;
 using WheelOfFortune.Interfaces;
+using WheelOfFortune.Models.Wheels;
 
 namespace WheelOfFortune.Data
 {
@@ -18,6 +19,10 @@ namespace WheelOfFortune.Data
         {
             return this.Set<T>();
         }
+
+
+        public DbSet<AdminCoupon> AdminCoupon { get; set; }
+        public DbSet<Wheel> AdminWheels { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

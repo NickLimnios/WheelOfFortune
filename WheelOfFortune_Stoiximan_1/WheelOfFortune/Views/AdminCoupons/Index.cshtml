@@ -9,42 +9,48 @@
 <p>
     <a asp-action="Create">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>Coupon ID</th>
-            <th>Creation Date</th>
-            <th>Code</th>
-            <th>Value</th>
-            <th>Status</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ID)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CreationDate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => AdminCoupon.Code)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Value) €
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Status)
-            </td>
-            <td>
-                @*<a asp-action="Edit" asp-route-id="@item.ID">Assign to User</a>*@
-                <a asp-action="Redeem" asp-route-id="@item.ID">Redeem</a> |
-                <a asp-action="Delete" asp-route-id="@item.ID">Delete</a> |
-                <a asp-action="Edit" asp-route-id="@item.ID">Revoke</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="bg-info" style=" background-color:rgba(192,192,192,0.8);">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Coupon ID</th>
+                <th>Creation Date</th>
+                <th>Code</th>
+                <th>Value</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ID)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreationDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Code)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Value) €
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Status)
+                    </td>
+                    <td>
+                        @*<a asp-action="Edit" asp-route-id="@item.ID">Assign to User</a>*@
+                        @*<a asp-action="Redeem" asp-route-id="@item.ID">Redeem</a> |*@
+                        <a asp-action="Delete" asp-route-id="@item.ID">Delete</a>
+                        @if ((item.Status) != "Revoked")
+                {
+                            <a asp-action="Edit" asp-route-id="@item.ID">| Revoke</a>
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

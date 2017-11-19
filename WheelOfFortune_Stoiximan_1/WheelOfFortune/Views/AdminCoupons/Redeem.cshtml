@@ -4,6 +4,20 @@
 }
 <h2>Redeem</h2>
 <h3>Are you sure you want to Redeem this?</h3>
+
+@if (ViewBag.Message != null)
+{
+    <script>
+
+$(document).ready(function(){
+
+alert('@ViewBag.Message');
+
+});
+
+    </script>
+
+}
 <div>
 
     <hr />
@@ -12,6 +26,6 @@
     <form asp-action="Redeem">
         <input type="hidden" asp-for="ID" />
         <input type="submit" value="Redeem" class="btn btn-default" />
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="GetCoupon">Back to List</a>
     </form>
 </div>

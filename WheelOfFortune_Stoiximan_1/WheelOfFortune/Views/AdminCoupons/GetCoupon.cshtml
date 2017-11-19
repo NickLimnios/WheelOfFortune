@@ -1,0 +1,25 @@
+﻿@model IEnumerable<WheelOfFortune.Models.AdminCoupon>
+
+@{
+    ViewData["Title"] = "Redeem";
+}
+
+<h2>Redeem</h2>
+
+
+
+
+@foreach (var item in Model)
+{
+    @if (item.Status == "Active")
+    {
+        <form asp-action="Redeem">
+
+            @Html.DisplayFor(modelItem => item.Value)
+            <a asp-action="Redeem" asp-route-id="@item.ID">Redeem</a>
+
+        </form>
+    }
+}
+
+<h4><a asp-controller="Transaction" asp-action="TransactionList">Back to List</a></h4>
